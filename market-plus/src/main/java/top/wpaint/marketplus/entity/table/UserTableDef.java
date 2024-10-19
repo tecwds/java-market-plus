@@ -1,0 +1,92 @@
+package top.wpaint.marketplus.entity.table;
+
+import com.mybatisflex.core.query.QueryColumn;
+import com.mybatisflex.core.table.TableDef;
+
+import java.io.Serial;
+
+/**
+ *  表定义层。
+ *
+ * @author tecwds
+ * @since 2024-10-19
+ */
+public class UserTableDef extends TableDef {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 
+     */
+    public static final UserTableDef USER = new UserTableDef();
+
+    /**
+     * 权限类型
+     */
+    public final QueryColumn RULE = new QueryColumn(this, "rule");
+
+    /**
+     * 用户头像
+     */
+    public final QueryColumn AVATAR = new QueryColumn(this, "avatar");
+
+    /**
+     * 性别
+     */
+    public final QueryColumn GENDER = new QueryColumn(this, "gender");
+
+    /**
+     * 用户ID
+     */
+    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
+
+    /**
+     * （默认）登陆类型
+     */
+    public final QueryColumn AUTH_TYPE = new QueryColumn(this, "auth_type");
+
+    /**
+     * 用户昵称（随意）
+     */
+    public final QueryColumn NICKNAME = new QueryColumn(this, "nickname");
+
+    /**
+     * 用户名（唯一）
+     */
+    public final QueryColumn USERNAME = new QueryColumn(this, "username");
+
+    /**
+     * 用户签名
+     */
+    public final QueryColumn SIGNATURE = new QueryColumn(this, "signature");
+
+    /**
+     * 认证信息
+     */
+    public final QueryColumn AUTHORIZATION = new QueryColumn(this, "authorization");
+
+    /**
+     * 所有字段。
+     */
+    public final QueryColumn ALL_COLUMNS = new QueryColumn(this, "*");
+
+    /**
+     * 默认字段，不包含逻辑删除或者 large 等字段。
+     */
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, RULE};
+
+    public UserTableDef() {
+        super("", "wb_user");
+    }
+
+    private UserTableDef(String schema, String name, String alisa) {
+        super(schema, name, alisa);
+    }
+
+    public UserTableDef as(String alias) {
+        String key = getNameWithSchema() + "." + alias;
+        return getCache(key, k -> new UserTableDef("", "wb_user", alias));
+    }
+
+}
