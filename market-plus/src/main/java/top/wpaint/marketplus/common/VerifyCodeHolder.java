@@ -3,6 +3,10 @@ package top.wpaint.marketplus.common;
 public class VerifyCodeHolder {
     private final static ThreadLocal<Integer> verifycode = new ThreadLocal<>();
 
+    static {
+        verifycode.set(127);
+    }
+
     public static void add(Integer code) {
         verifycode.set(code);
     }

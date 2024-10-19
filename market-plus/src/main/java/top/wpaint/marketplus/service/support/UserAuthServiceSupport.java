@@ -1,7 +1,10 @@
 package top.wpaint.marketplus.service.support;
 
+import cn.dev33.satoken.stp.StpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import top.wpaint.marketplus.common.AppException;
+import top.wpaint.marketplus.common.ResponseStatus;
 import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.vo.LoginVO;
@@ -11,23 +14,18 @@ import top.wpaint.marketplus.mapper.UserAuthMapper;
 @Component
 public class UserAuthServiceSupport {
 
-    private final UserAuthMapper userAuthMapper;
-
-    public UserAuthServiceSupport(UserAuthMapper userAuthMapper) {
-        this.userAuthMapper = userAuthMapper;
-    }
-
     /**
      * 邮箱登陆
      */
-    public LoginVO emailLogin(LoginDTO body, UserAuth userAuth) {
-        log.info("邮箱登陆 - {}", body);
+    public LoginVO emailLogin(LoginDTO body, UserAuth userAuth) throws AppException {
+        log.debug("邮箱登陆 - {}", body);
 
-        // 发送邮箱验证码
+        if (body.getSecretKey().equals(userAuth.getSecretKey())) {
+            log.debug("登陆成功 - {}", body);
+            StpUtil.login(userAuth.getUserId().toString());
+            return new LoginVO(StpUtil.getTokenValue());
+        }
 
-
-
-
-        return null;
+        throw new AppException(ResponseStatus.USERNAME_OR_PASSWD_ERR);
     }
 }
