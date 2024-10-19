@@ -1,17 +1,16 @@
 package top.wpaint.marketplus.entity;
 
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
-import top.wpaint.marketplus.entity.BaseEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
@@ -24,9 +23,8 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 @Table(value = "wb_auth")
-public class Auth extends BaseEntity implements Serializable {
+public class Auth implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -60,21 +58,25 @@ public class Auth extends BaseEntity implements Serializable {
     /**
      * 创建时间
      */
+    @Column(onInsertValue = "now()")
     private LocalDateTime gmtCreated;
 
     /**
      * 修改时间
      */
+    @Column(onUpdateValue = "now()")
     private LocalDateTime gmtModified;
 
     /**
      * 是否删除（逻辑删除）
      */
+    @Column(onInsertValue = "0", isLogicDelete = true)
     private Integer isDeleted;
 
     /**
      * 是否启用（激活）
      */
+    @Column(onInsertValue = "0")
     private Integer isEnable;
 
 }

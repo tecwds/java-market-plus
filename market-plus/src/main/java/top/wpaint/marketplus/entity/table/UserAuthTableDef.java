@@ -56,7 +56,9 @@ public class UserAuthTableDef extends TableDef {
      */
     public final QueryColumn USER_NAME = new QueryColumn(this, "user_name");
 
-    
+    /**
+     * 登录时的用户名、邮箱或者第三方Token
+     */
     public final QueryColumn ACCESS_KEY = new QueryColumn(this, "access_key");
 
     /**
@@ -64,8 +66,15 @@ public class UserAuthTableDef extends TableDef {
      */
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
 
-    
+    /**
+     * 密码，如果存在
+     */
     public final QueryColumn SECRET_KEY = new QueryColumn(this, "secret_key");
+
+    /**
+     * 创建时间
+     */
+    public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
      * 认证描述
@@ -85,7 +94,7 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, USER_ID, USER_NAME, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, USER_ID, USER_NAME, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public UserAuthTableDef() {
         super("", "wb_user_auth");

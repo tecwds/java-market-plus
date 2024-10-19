@@ -99,7 +99,7 @@ public class UserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, RULE, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, RULE, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public UserTableDef() {
         super("", "wb_user");
