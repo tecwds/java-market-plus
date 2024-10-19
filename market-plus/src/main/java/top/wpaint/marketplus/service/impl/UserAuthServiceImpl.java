@@ -144,11 +144,11 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
 
         UserAuth userAuth = new UserAuth();
         
-        user = User.builder()
-                .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
-        .authType(AuthConst.AUTH_EMAIL)
-        .rule()
-                .build();
+//        user = User.builder()
+//                .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
+//        .authType(AuthConst.AUTH_EMAIL)
+//        .rule()
+//                .build();
 
 
 

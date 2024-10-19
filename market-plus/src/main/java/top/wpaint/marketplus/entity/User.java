@@ -18,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-10-19
+ * @since 2024-10-20
  */
 @Data
 @Builder
@@ -79,7 +79,7 @@ public class User implements Serializable {
     /**
      * 权限类型
      */
-    private BigInteger rule;
+    private String roleName;
 
     /**
      * 创建时间
