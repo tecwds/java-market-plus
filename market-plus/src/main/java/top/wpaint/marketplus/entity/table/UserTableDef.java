@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-10-19
+ * @since 2024-10-20
  */
 public class UserTableDef extends TableDef {
 
@@ -25,11 +25,6 @@ public class UserTableDef extends TableDef {
      * 表 ID，用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
-
-    /**
-     * 权限类型
-     */
-    public final QueryColumn RULE = new QueryColumn(this, "rule");
 
     /**
      * 用户头像
@@ -60,6 +55,11 @@ public class UserTableDef extends TableDef {
      * 用户昵称（随意）
      */
     public final QueryColumn NICKNAME = new QueryColumn(this, "nickname");
+
+    /**
+     * 权限类型
+     */
+    public final QueryColumn ROLE_NAME = new QueryColumn(this, "role_name");
 
     /**
      * 用户名（唯一）
@@ -99,7 +99,7 @@ public class UserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, RULE, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, ROLE_NAME, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public UserTableDef() {
         super("", "wb_user");
