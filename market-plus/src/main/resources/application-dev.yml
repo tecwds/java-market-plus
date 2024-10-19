@@ -24,3 +24,6 @@ sa-token:
   token-style: uuid
   # 是否输出操作日志
   is-log: true
+  # jwt 密钥
+  # 潘的大超市
+  jwt-secret-key: iEepyFxYmqWktYF2KmNbDqj18uM

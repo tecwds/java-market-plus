@@ -22,6 +22,11 @@ public class UserTableDef extends TableDef {
     public static final UserTableDef USER = new UserTableDef();
 
     /**
+     * 表 ID，用于快速索引
+     */
+    public final QueryColumn ID = new QueryColumn(this, "id");
+
+    /**
      * 权限类型
      */
     public final QueryColumn RULE = new QueryColumn(this, "rule");
@@ -47,6 +52,11 @@ public class UserTableDef extends TableDef {
     public final QueryColumn AUTH_TYPE = new QueryColumn(this, "auth_type");
 
     /**
+     * 是否启用（激活）
+     */
+    public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
+
+    /**
      * 用户昵称（随意）
      */
     public final QueryColumn NICKNAME = new QueryColumn(this, "nickname");
@@ -57,9 +67,24 @@ public class UserTableDef extends TableDef {
     public final QueryColumn USERNAME = new QueryColumn(this, "username");
 
     /**
+     * 是否删除（逻辑删除）
+     */
+    public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
+
+    /**
      * 用户签名
      */
     public final QueryColumn SIGNATURE = new QueryColumn(this, "signature");
+
+    /**
+     * 创建时间
+     */
+    public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
+
+    /**
+     * 修改时间
+     */
+    public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
 
     /**
      * 认证信息
@@ -74,7 +99,7 @@ public class UserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, RULE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, RULE, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
     public UserTableDef() {
         super("", "wb_user");

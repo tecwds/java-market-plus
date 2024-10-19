@@ -1,5 +1,6 @@
 package top.wpaint.marketplus.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
 import top.wpaint.marketplus.entity.Auth;
 
@@ -9,6 +10,7 @@ import top.wpaint.marketplus.entity.Auth;
  * @author tecwds
  * @since 2024-10-19
  */
+@Mapper
 public interface AuthMapper extends BaseMapper<Auth> {
 
 }
