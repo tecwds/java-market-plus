@@ -2,6 +2,7 @@ package top.wpaint.marketplus.entity;
 
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -32,7 +33,7 @@ public class Auth implements Serializable {
     /**
      * 表 ID，用于快速索引
      */
-    @Id
+    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
 
     /**
