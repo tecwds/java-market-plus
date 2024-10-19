@@ -1,6 +1,7 @@
 package top.wpaint.marketplus.service;
 
 import com.mybatisflex.core.service.IService;
+import top.wpaint.marketplus.common.AppException;
 import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.vo.LoginVO;
@@ -13,5 +14,5 @@ import top.wpaint.marketplus.entity.vo.LoginVO;
  */
 public interface UserAuthService extends IService<UserAuth> {
 
-    LoginVO doLogin(LoginDTO body);
+    LoginVO doLogin(LoginDTO body) throws AppException;
 }

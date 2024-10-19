@@ -23,6 +23,11 @@ public class AppException extends Exception {
      */
     private String message;
 
+    public AppException(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
     public AppException(Integer code) {
         this.code = code;
     }
@@ -41,4 +46,10 @@ public class AppException extends Exception {
     public AppException(ResponseStatus status, Throwable cause) {
         this(status.getCode(), status.getMessage(), cause);
     }
+
+    public AppException(ResponseStatus status) {
+        this(status.getCode(), status.getMessage());
+    }
+
+
 }
