@@ -12,6 +12,11 @@ public class LoginDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
+     * 用户名（邮箱）
+     */
+    private String username;
+
+    /**
      * 登陆账号（邮箱、第三方认证）
      */
     private String accessKey;

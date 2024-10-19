@@ -1,13 +1,17 @@
 package top.wpaint.marketplus.util;
 
 import cn.hutool.core.date.LocalDateTimeUtil;
+import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.codegen.Generator;
 import com.mybatisflex.codegen.config.ColumnConfig;
 import com.mybatisflex.codegen.config.GlobalConfig;
+import com.mybatisflex.core.keygen.KeyGeneratorFactory;
+import com.mybatisflex.core.keygen.KeyGenerators;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Cleanup;
 import top.wpaint.marketplus.common.constant.LogicConst;
 
+import javax.crypto.KeyGenerator;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -78,6 +82,13 @@ public class CodegenUtils {
             globalConfig.setColumnConfig(
                     table,
                     ColumnConfig.builder().build()
+                            .setColumnName("id")
+                            .setKeyType(KeyType.Generator)
+                            .setKeyValue(KeyGenerators.snowFlakeId)
+                    );
+            globalConfig.setColumnConfig(
+                    table,
+                    ColumnConfig.builder().build()
                             .setColumnName("gmt_created")
                             .setOnInsertValue("now()"));
 
@@ -85,20 +96,22 @@ public class CodegenUtils {
                     table,
                     ColumnConfig.builder().build()
                             .setColumnName("gmt_modified")
+                            .setOnInsertValue("now()")
                             .setOnUpdateValue("now()"));
+
 
             globalConfig.setColumnConfig(
                     table,
                     ColumnConfig.builder().build()
                             .setColumnName("is_deleted")
                             .setLogicDelete(true)
-                            .setOnInsertValue(LogicConst.NOT_DELETED));
+                            .setOnInsertValue(LogicConst.NOT_DELETED.toString()));
 
             globalConfig.setColumnConfig(
                     table,
                     ColumnConfig.builder().build()
                             .setColumnName("is_enable")
-                            .setOnInsertValue(LogicConst.DISABLE));
+                            .setOnInsertValue(LogicConst.DISABLE.toString()));
         }
 
 

@@ -49,7 +49,7 @@ public class UserAuth implements Serializable {
     /**
      * 账号（用户名/邮箱）
      */
-    private String userName;
+    private String username;
 
     /**
      * 认证名称

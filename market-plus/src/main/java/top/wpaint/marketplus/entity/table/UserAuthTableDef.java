@@ -54,7 +54,7 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 账号（用户名/邮箱）
      */
-    public final QueryColumn USER_NAME = new QueryColumn(this, "user_name");
+    public final QueryColumn USERNAME = new QueryColumn(this, "username");
 
     /**
      * 登录时的用户名、邮箱或者第三方Token
@@ -94,7 +94,7 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, USER_ID, USER_NAME, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, USER_ID, USERNAME, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public UserAuthTableDef() {
         super("", "wb_user_auth");

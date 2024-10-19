@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import top.wpaint.marketplus.common.AppException;
 import top.wpaint.marketplus.entity.ResponseEntity;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.vo.LoginVO;
@@ -25,7 +26,7 @@ public class AuthController {
     }
 
     @PostMapping("login")
-    public ResponseEntity<LoginVO> authLogin(@RequestBody LoginDTO body) {
+    public ResponseEntity<LoginVO> authLogin(@RequestBody LoginDTO body) throws AppException {
         log.debug("执行登陆接口：{}", body);
         LoginVO res = userAuthService.doLogin(body);
         return ResponseEntity.success(res);

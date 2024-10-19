@@ -6,6 +6,8 @@ import lombok.Getter;
 public enum ResponseStatus {
     SUCCESS(200, "成功"),
     ERROR(400, "未知错误"),
+    USER_NOT_FOUND(400, "用户不存在"),
+    USER_NOT_ENABLE(400, "用户未激活"),
     TWICE_PASSWD_NOT_EQ(400, "两次输入密码不匹配");
 
 
