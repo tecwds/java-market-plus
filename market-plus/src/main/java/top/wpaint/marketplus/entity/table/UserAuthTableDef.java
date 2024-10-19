@@ -22,6 +22,11 @@ public class UserAuthTableDef extends TableDef {
     public static final UserAuthTableDef USER_AUTH = new UserAuthTableDef();
 
     /**
+     * 表 ID，用于快速索引
+     */
+    public final QueryColumn ID = new QueryColumn(this, "id");
+
+    /**
      * 关联认证 ID
      */
     public final QueryColumn AUTH_ID = new QueryColumn(this, "auth_id");
@@ -42,9 +47,35 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn AUTH_TYPE = new QueryColumn(this, "auth_type");
 
     /**
+     * 是否启用（激活）
+     */
+    public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
+
+    /**
+     * 账号（用户名/邮箱）
+     */
+    public final QueryColumn USER_NAME = new QueryColumn(this, "user_name");
+
+    
+    public final QueryColumn ACCESS_KEY = new QueryColumn(this, "access_key");
+
+    /**
+     * 是否删除（逻辑删除）
+     */
+    public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
+
+    
+    public final QueryColumn SECRET_KEY = new QueryColumn(this, "secret_key");
+
+    /**
      * 认证描述
      */
     public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
+
+    /**
+     * 修改时间
+     */
+    public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
 
     /**
      * 所有字段。
@@ -54,7 +85,7 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{AUTH_ID, USER_ID, AUTH_NAME, AUTH_TYPE, DESCRIPTION};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, USER_ID, USER_NAME, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
     public UserAuthTableDef() {
         super("", "wb_user_auth");
