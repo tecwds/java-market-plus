@@ -90,7 +90,7 @@ public class User implements Serializable {
     /**
      * 修改时间
      */
-    @Column(onUpdateValue = "now()")
+    @Column(onInsertValue = "now()", onUpdateValue = "now()")
     private LocalDateTime gmtModified;
 
     /**
