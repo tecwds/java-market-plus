@@ -49,11 +49,6 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
                         .or(UserAuthTableDef.USER_AUTH.ACCESS_KEY.eq(body.getAccessKey())))
                 .list();
 
-        List<UserAuth> all = QueryChain.of(userAuthMapper)
-            .select(UserAuthTableDef.USER_AUTH.ALL_COLUMNS)
-            .from(UserAuthTableDef.USER_AUTH)
-            .list();
-
         // 检查认证类型
         if (!Objects.equals(body.getType(), AuthConst.AUTH_EMAIL)) {
             return null;
@@ -67,6 +62,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
                 break;
             }
         }
+
+//        log.debug("UserAuth 信息 -- {}", emailAuth);
 
         if (null == emailAuth) {
             return null;
