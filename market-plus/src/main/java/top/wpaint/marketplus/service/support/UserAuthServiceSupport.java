@@ -3,7 +3,7 @@ package top.wpaint.marketplus.service.support;
 import cn.dev33.satoken.stp.StpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import top.wpaint.marketplus.common.AppException;
+import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.common.ResponseStatus;
 import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
