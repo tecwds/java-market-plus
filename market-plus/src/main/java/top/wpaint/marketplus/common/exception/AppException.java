@@ -1,8 +1,9 @@
-package top.wpaint.marketplus.common;
+package top.wpaint.marketplus.common.exception;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import top.wpaint.marketplus.common.ResponseStatus;
 
 import java.io.Serial;
 

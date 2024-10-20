@@ -14,5 +14,6 @@ public class MarketPlusApplication {
     public static void main(String[] args) {
         SpringApplication.run(MarketPlusApplication.class, args);
         log.info("潘的大超市正在运行...");
+        log.info("潘的黑市正在悄悄运行<-<");
     }
 }

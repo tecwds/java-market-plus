@@ -1,13 +1,16 @@
 package top.wpaint.marketplus.service.impl;
 
+import cn.dev33.satoken.session.SaSession;
+import cn.dev33.satoken.session.SaSessionCustomUtil;
 import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import top.wpaint.marketplus.common.AppException;
+import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.common.ResponseStatus;
 import top.wpaint.marketplus.common.VerifyCodeHolder;
 import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
+import top.wpaint.marketplus.common.constant.RoleConst;
 import top.wpaint.marketplus.entity.User;
 import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
@@ -45,9 +48,9 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     private final VerCodeUtil verCodeUtil;
 
     public UserAuthServiceImpl(
-        UserMapper userMapper,
-        UserAuthMapper userAuthMapper,
-        UserAuthServiceSupport userAuthServiceSupport, VerCodeUtil verCodeUtil) {
+            UserMapper userMapper,
+            UserAuthMapper userAuthMapper,
+            UserAuthServiceSupport userAuthServiceSupport, VerCodeUtil verCodeUtil) {
         this.userMapper = userMapper;
         this.userAuthMapper = userAuthMapper;
         this.userAuthServiceSupport = userAuthServiceSupport;
@@ -61,10 +64,10 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         LoginVO vo = null;
 
         User user = QueryChain.of(userMapper)
-            .select(UserTableDef.USER.DEFAULT_COLUMNS)
-            .from(UserTableDef.USER)
-            .where(UserTableDef.USER.USERNAME.eq(body.getUsername()))
-            .one();
+                .select(UserTableDef.USER.DEFAULT_COLUMNS)
+                .from(UserTableDef.USER)
+                .where(UserTableDef.USER.USERNAME.eq(body.getUsername()))
+                .one();
 
         if (null == user) {
             log.warn(ResponseStatus.USER_NOT_FOUND.getMessage());
@@ -105,10 +108,16 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         // 发送验证码
         Integer verCode = VerCodeUtil.genVerifyCode();
 
-        Boolean isSendOk = verCodeUtil.sendSimpleMessage(verifyCode.getEmail(),verCode.toString());
+        log.info("verCode = {}", verCode);
+
+        // test
+//        Boolean isSendOk = true;
+        Boolean isSendOk = verCodeUtil.sendSimpleMessage(verifyCode.getEmail(), verCode.toString());
 
         if (isSendOk) {
-            VerifyCodeHolder.add(verCode);
+//            VerifyCodeHolder.add(verifyCode.getEmail(), verCode);
+            // 将邮箱设置为 sessionId
+            SaSessionCustomUtil.getSessionById("verCode-" + verifyCode.getEmail()).set(verifyCode.getEmail(), verCode);
             return new VerifyCodeVO(ResponseStatus.SEND_MAIL_OK.getMessage());
         }
 
@@ -119,10 +128,10 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     public String doRegister(RegisterDTO body) throws AppException {
         // 检查用户是否存在
         User user = QueryChain.of(userMapper)
-            .select(UserTableDef.USER.DEFAULT_COLUMNS)
-            .from(UserTableDef.USER)
-            .where(UserTableDef.USER.USERNAME.eq(body.getEmail()))
-            .one();
+                .select(UserTableDef.USER.DEFAULT_COLUMNS)
+                .from(UserTableDef.USER)
+                .where(UserTableDef.USER.USERNAME.eq(body.getEmail()))
+                .one();
 
         if (null != user) {
             log.warn("用户已经存在 - {}", body.getEmail());
@@ -131,29 +140,47 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
 
         // 开始注册流程
 
-        Integer verCode = VerifyCodeHolder.getCode();
+        SaSession sessionById = SaSessionCustomUtil.getSessionById("verCode-" + body.getEmail());
 
-        if (verCode.equals(127)) {
+        Integer verCode = sessionById.getInt(body.getEmail());
+
+        if (verCode.equals(0)) {
             throw new AppException(ResponseStatus.MAIL_NOT_SEND);
         }
 
         // 验证码匹配
+        // TODO 优化这个流程
         if (!verCode.equals(body.getVerCode())) {
             throw new AppException(ResponseStatus.VERIFY_CODE_NOT_EQ);
         }
 
-        UserAuth userAuth = new UserAuth();
-        
-//        user = User.builder()
-//                .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
-//        .authType(AuthConst.AUTH_EMAIL)
-//        .rule()
-//                .build();
+        user = User.builder()
+                .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
+                .username(body.getEmail())
+                .authType(AuthConst.AUTH_EMAIL)
+                .roleName(RoleConst.R_USER)
+                .build();
 
+        UserAuth userAuth = UserAuth.builder()
+                .userId(user.getUserId())
+                .username(user.getUsername())
+                .accessKey(body.getEmail())
+                .secretKey(body.getPassword())
+                .authName(AuthConst.A_EMAIL_NAME)
+                .authType(AuthConst.AUTH_EMAIL)
+                .description("邮箱登陆")
+                .build();
 
+        userMapper.insert(user);
+        userAuthMapper.insert(userAuth);
 
+        // 需要优化这一步
+        user.setIsEnable(LogicConst.ENABLE);
+        userMapper.update(user);
 
+        // 重置邮箱验证码
+        SaSessionCustomUtil.deleteSessionById("verCode-" + body.getEmail());
 
-        return null;
+        return ResponseStatus.REGISTER_OK.getMessage();
     }
 }

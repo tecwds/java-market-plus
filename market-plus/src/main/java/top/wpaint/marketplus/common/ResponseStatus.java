@@ -6,7 +6,9 @@ import lombok.Getter;
 public enum ResponseStatus {
     SUCCESS(200, "成功"),
     SEND_MAIL_OK(200, "发送成功，请验收"),
+    REGISTER_OK(200, "注册成功"),
     ERROR(400, "未知错误"),
+    USER_NOT_LOGIN(400, "你就没登陆"),
     USER_NOT_FOUND(400, "用户不存在"),
     USER_EXISTS(400, "用户已经存在"),
     USER_NOT_ENABLE(400, "用户未激活"),

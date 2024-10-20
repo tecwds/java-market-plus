@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.GenderConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
+import top.wpaint.marketplus.common.constant.RoleConst;
 import top.wpaint.marketplus.entity.Auth;
 import top.wpaint.marketplus.entity.Role;
 import top.wpaint.marketplus.entity.User;
@@ -38,7 +39,7 @@ class MarketPlusApplicationTests {
     void contextLoads() {
     }
 
-    @Test
+//    @Test
     void roleDataGenTest() {
         Role role = Role.builder()
             .roleId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
@@ -49,13 +50,14 @@ class MarketPlusApplicationTests {
         roleService.save(role);
     }
 
-    @Test
+//    @Test
     void userDataGenTest() {
         User user = User.builder()
             .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
         .username("tecwds@163.com")
         .nickname("潘")
-        .rule(new BigInteger(String.valueOf(1297276825285689344L)))
+//        .rule(new BigInteger(String.valueOf(1297276825285689344L)))
+        .roleName(RoleConst.R_USER)
         .gender(GenderConst.MALE)
         .authType(AuthConst.AUTH_EMAIL)
         .isEnable(LogicConst.ENABLE)
@@ -64,7 +66,7 @@ class MarketPlusApplicationTests {
         userService.save(user);
     }
 
-    @Test
+//    @Test
     void authDataGenTest() {
         Auth auth = Auth.builder()
             .authId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
@@ -77,7 +79,7 @@ class MarketPlusApplicationTests {
         authService.save(auth);
     }
 
-    @Test
+//    @Test
     void userAuthDataGenTest() {
         UserAuth userAuth = UserAuth.builder()
             .authId(new BigInteger("1297319908631117824"))
