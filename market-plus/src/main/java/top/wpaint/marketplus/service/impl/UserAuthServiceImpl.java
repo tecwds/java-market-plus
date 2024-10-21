@@ -7,7 +7,6 @@ import com.mybatisflex.spring.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.common.ResponseStatus;
-import top.wpaint.marketplus.common.VerifyCodeHolder;
 import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.constant.RoleConst;
@@ -29,7 +28,6 @@ import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
 import top.wpaint.marketplus.util.VerCodeUtil;
 
 import java.math.BigInteger;
-import java.util.Objects;
 
 /**
  * 服务层实现。
@@ -61,42 +59,45 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     public LoginVO doLogin(LoginDTO body) throws AppException {
         log.debug("登陆接口 - Service -- {}", body);
 
-        LoginVO vo = null;
-
-        User user = QueryChain.of(userMapper)
-                .select(UserTableDef.USER.DEFAULT_COLUMNS)
-                .from(UserTableDef.USER)
-                .where(UserTableDef.USER.USERNAME.eq(body.getUsername()))
-                .one();
-
-        if (null == user) {
-            log.warn(ResponseStatus.USER_NOT_FOUND.getMessage());
-            throw new AppException(ResponseStatus.USER_NOT_FOUND);
-        }
-
-        // 根据 username 和 (auth_)type 获得 user_auth
-        // 理想结果为之查询出一条数据
-        UserAuth userAuth = QueryChain.of(userAuthMapper)
-                .select(UserAuthTableDef.USER_AUTH.DEFAULT_COLUMNS)
-                .from(UserAuthTableDef.USER_AUTH)
-                .where(UserAuthTableDef.USER_AUTH.USERNAME.eq(body.getUsername())
-                        .and(UserAuthTableDef.USER_AUTH.AUTH_TYPE.eq(body.getType())))
-                .one();
-
-        if (null == userAuth) {
-            log.warn(ResponseStatus.USER_NOT_ENABLE.getMessage());
-            throw new AppException(ResponseStatus.USER_NOT_ENABLE);
-        }
-
         // 账号检测
         // 目前实现了 email，
         // TODO 第三方登陆实现
 
-        if (body.getType().equals(AuthConst.AUTH_EMAIL)) {
-            vo = userAuthServiceSupport.emailLogin(body, userAuth);
-        } else {
+        LoginVO vo = null;
+
+        if (!body.getType().equals(AuthConst.AUTH_EMAIL)) {
+            log.error("其他形式登陆功能未实现");
             throw new AppException(ResponseStatus.ERROR);
         }
+
+        // 此时 accessKey 为 email
+        User user = QueryChain.of(userMapper)
+            .select(UserTableDef.USER.DEFAULT_COLUMNS)
+            .from(UserTableDef.USER)
+            .where(UserTableDef.USER.EMAIL.eq(body.getAccessKey()))
+            .one();
+
+        if (null == user) {
+            throw new AppException(ResponseStatus.USER_NOT_FOUND);
+        }
+
+        if (user.getIsEnable().equals(LogicConst.DISABLE)) {
+            throw new AppException(ResponseStatus.USER_NOT_ENABLE);
+        }
+
+        // 查询用户登陆
+        UserAuth userAuth = QueryChain.of(userAuthMapper)
+                .select(UserAuthTableDef.USER_AUTH.DEFAULT_COLUMNS)
+                .from(UserAuthTableDef.USER_AUTH)
+                .where(UserAuthTableDef.USER_AUTH.USER_ID.eq(user.getUserId()).and(UserAuthTableDef.USER_AUTH.AUTH_TYPE.eq(body.getType())))
+                .one();
+
+        if (null == userAuth) {
+            throw new AppException(ResponseStatus.USER_AUTH_TYPE_NOT_SUPORRT);
+        }
+
+        // email login
+        vo = userAuthServiceSupport.emailLogin(body, userAuth);
 
         return vo;
     }
@@ -117,7 +118,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         if (isSendOk) {
 //            VerifyCodeHolder.add(verifyCode.getEmail(), verCode);
             // 将邮箱设置为 sessionId
-            SaSessionCustomUtil.getSessionById("verCode-" + verifyCode.getEmail()).set(verifyCode.getEmail(), verCode);
+            SaSessionCustomUtil.getSessionById("verCode-" + verifyCode.getEmail())
+                    .set(verifyCode.getEmail(), verCode);
             return new VerifyCodeVO(ResponseStatus.SEND_MAIL_OK.getMessage());
         }
 
@@ -130,7 +132,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         User user = QueryChain.of(userMapper)
                 .select(UserTableDef.USER.DEFAULT_COLUMNS)
                 .from(UserTableDef.USER)
-                .where(UserTableDef.USER.USERNAME.eq(body.getEmail()))
+                .where(UserTableDef.USER.EMAIL.eq(body.getEmail()))
                 .one();
 
         if (null != user) {
@@ -156,14 +158,13 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
 
         user = User.builder()
                 .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
-                .username(body.getEmail())
+                .email(body.getEmail())
                 .authType(AuthConst.AUTH_EMAIL)
                 .roleName(RoleConst.R_USER)
                 .build();
 
         UserAuth userAuth = UserAuth.builder()
                 .userId(user.getUserId())
-                .username(user.getUsername())
                 .accessKey(body.getEmail())
                 .secretKey(body.getPassword())
                 .authName(AuthConst.A_EMAIL_NAME)
@@ -177,6 +178,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         // 需要优化这一步
         user.setIsEnable(LogicConst.ENABLE);
         userMapper.update(user);
+        userAuth.setIsEnable(LogicConst.ENABLE);
+        userAuthMapper.update(userAuth);
 
         // 重置邮箱验证码
         SaSessionCustomUtil.deleteSessionById("verCode-" + body.getEmail());

@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-10-20
+ * @since 2024-10-21
  */
 public class UserTableDef extends TableDef {
 
@@ -25,6 +25,11 @@ public class UserTableDef extends TableDef {
      * 表 ID，用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
+
+    /**
+     * 用户名（唯一）
+     */
+    public final QueryColumn EMAIL = new QueryColumn(this, "email");
 
     /**
      * 用户头像
@@ -52,17 +57,12 @@ public class UserTableDef extends TableDef {
     public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
 
     /**
-     * 用户昵称（随意）
-     */
-    public final QueryColumn NICKNAME = new QueryColumn(this, "nickname");
-
-    /**
      * 权限类型
      */
     public final QueryColumn ROLE_NAME = new QueryColumn(this, "role_name");
 
     /**
-     * 用户名（唯一）
+     * 用户昵称（随意）
      */
     public final QueryColumn USERNAME = new QueryColumn(this, "username");
 
@@ -87,11 +87,6 @@ public class UserTableDef extends TableDef {
     public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
 
     /**
-     * 认证信息
-     */
-    public final QueryColumn AUTHORIZATION = new QueryColumn(this, "authorization");
-
-    /**
      * 所有字段。
      */
     public final QueryColumn ALL_COLUMNS = new QueryColumn(this, "*");
@@ -99,7 +94,7 @@ public class UserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, AUTHORIZATION, AUTH_TYPE, ROLE_NAME, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, EMAIL, USERNAME, SIGNATURE, GENDER, AUTH_TYPE, ROLE_NAME, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public UserTableDef() {
         super("", "wb_user");
