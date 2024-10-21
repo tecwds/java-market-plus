@@ -18,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-10-20
+ * @since 2024-10-21
  */
 @Data
 @Builder
@@ -49,12 +49,12 @@ public class User implements Serializable {
     /**
      * 用户名（唯一）
      */
-    private String username;
+    private String email;
 
     /**
      * 用户昵称（随意）
      */
-    private String nickname;
+    private String username;
 
     /**
      * 用户签名
@@ -65,11 +65,6 @@ public class User implements Serializable {
      * 性别
      */
     private Long gender;
-
-    /**
-     * 认证信息
-     */
-    private String authorization;
 
     /**
      * （默认）登陆类型

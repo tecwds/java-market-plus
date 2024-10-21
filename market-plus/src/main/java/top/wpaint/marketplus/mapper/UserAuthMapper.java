@@ -8,7 +8,7 @@ import top.wpaint.marketplus.entity.UserAuth;
  *  映射层。
  *
  * @author tecwds
- * @since 2024-10-20
+ * @since 2024-10-21
  */
 @Mapper
 public interface UserAuthMapper extends BaseMapper<UserAuth> {

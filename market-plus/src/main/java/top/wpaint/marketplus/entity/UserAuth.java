@@ -18,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-10-20
+ * @since 2024-10-21
  */
 @Data
 @Builder
@@ -37,19 +37,9 @@ public class UserAuth implements Serializable {
     private BigInteger id;
 
     /**
-     * 关联认证 ID
-     */
-    private BigInteger authId;
-
-    /**
      * 关联用户 ID
      */
     private BigInteger userId;
-
-    /**
-     * 账号（用户名/邮箱）
-     */
-    private String username;
 
     /**
      * 认证名称

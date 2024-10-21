@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-10-20
+ * @since 2024-10-21
  */
 public class UserAuthTableDef extends TableDef {
 
@@ -25,11 +25,6 @@ public class UserAuthTableDef extends TableDef {
      * 表 ID，用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
-
-    /**
-     * 关联认证 ID
-     */
-    public final QueryColumn AUTH_ID = new QueryColumn(this, "auth_id");
 
     /**
      * 关联用户 ID
@@ -50,11 +45,6 @@ public class UserAuthTableDef extends TableDef {
      * 是否启用（激活）
      */
     public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
-
-    /**
-     * 账号（用户名/邮箱）
-     */
-    public final QueryColumn USERNAME = new QueryColumn(this, "username");
 
     /**
      * 登录时的用户名、邮箱或者第三方Token
@@ -94,7 +84,7 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, USER_ID, USERNAME, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public UserAuthTableDef() {
         super("", "wb_user_auth");
