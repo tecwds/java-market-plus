@@ -93,7 +93,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
                 .one();
 
         if (null == userAuth) {
-            throw new AppException(ResponseStatus.USER_AUTH_TYPE_NOT_SUPORRT);
+            throw new AppException(ResponseStatus.USER_AUTH_TYPE_NOT_SUPPORT);
         }
 
         // email login

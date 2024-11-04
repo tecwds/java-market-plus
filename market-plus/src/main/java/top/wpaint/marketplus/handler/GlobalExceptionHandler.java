@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.wpaint.marketplus.common.exception.AppException;
-import top.wpaint.marketplus.entity.ResponseEntity;
+import top.wpaint.marketplus.common.ResponseEntity;
 
 @Slf4j
 @ControllerAdvice

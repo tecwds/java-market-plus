@@ -1,5 +1,6 @@
 package top.wpaint.marketplus.entity.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.io.Serial;
