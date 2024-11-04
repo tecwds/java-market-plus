@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.common.ResponseStatus;
-import top.wpaint.marketplus.entity.ResponseEntity;
+import top.wpaint.marketplus.common.ResponseEntity;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.dto.RegisterDTO;
 import top.wpaint.marketplus.entity.dto.VerifyCodeDTO;

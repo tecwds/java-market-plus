@@ -4,6 +4,7 @@ import com.mybatisflex.core.service.IService;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.User;
 import top.wpaint.marketplus.entity.dto.UserInfoDTO;
+import top.wpaint.marketplus.entity.dto.UserPasswdDTO;
 import top.wpaint.marketplus.entity.vo.UserInfoVO;
 
 /**
@@ -20,4 +21,6 @@ public interface UserService extends IService<User> {
     UserInfoVO doGetUserInfo(String userId) throws AppException;
 
     UserInfoVO doUpdateUserInfo(String userId, UserInfoDTO body) throws AppException;
+
+    String doUpdateUserPasswd(String userId, UserPasswdDTO body) throws AppException;
 }

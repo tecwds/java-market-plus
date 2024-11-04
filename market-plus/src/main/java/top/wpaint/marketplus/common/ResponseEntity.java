@@ -1,4 +1,4 @@
-package top.wpaint.marketplus.entity;
+package top.wpaint.marketplus.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

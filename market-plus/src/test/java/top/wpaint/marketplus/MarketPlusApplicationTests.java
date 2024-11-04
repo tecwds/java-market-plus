@@ -54,8 +54,8 @@ class MarketPlusApplicationTests {
     void userDataGenTest() {
         User user = User.builder()
             .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
-        .username("tecwds@163.com")
-        .nickname("潘")
+        .email("tecwds@163.com")
+        .username("潘")
 //        .rule(new BigInteger(String.valueOf(1297276825285689344L)))
         .roleName(RoleConst.R_USER)
         .gender(GenderConst.MALE)
@@ -82,9 +82,7 @@ class MarketPlusApplicationTests {
 //    @Test
     void userAuthDataGenTest() {
         UserAuth userAuth = UserAuth.builder()
-            .authId(new BigInteger("1297319908631117824"))
             .userId(new BigInteger("1297320546689613824"))
-            .username("tecwds@163.com")
             .accessKey("tecwds@163.com")
             .secretKey("test1123@wpan")
             .description("163邮箱登陆")
