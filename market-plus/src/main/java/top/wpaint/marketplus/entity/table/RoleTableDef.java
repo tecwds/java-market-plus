@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-11-04
+ * @since 2024-11-05
  */
 public class RoleTableDef extends TableDef {
 
