@@ -5,13 +5,11 @@ import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.codegen.Generator;
 import com.mybatisflex.codegen.config.ColumnConfig;
 import com.mybatisflex.codegen.config.GlobalConfig;
-import com.mybatisflex.core.keygen.KeyGeneratorFactory;
 import com.mybatisflex.core.keygen.KeyGenerators;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.Cleanup;
 import top.wpaint.marketplus.common.constant.LogicConst;
 
-import javax.crypto.KeyGenerator;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -75,6 +73,8 @@ public class CodegenUtils {
         tableNames.add(TABLE_PREFIX + "role");
         tableNames.add(TABLE_PREFIX + "user");
         tableNames.add(TABLE_PREFIX + "user_auth");
+        tableNames.add(TABLE_PREFIX + "category");
+        tableNames.add(TABLE_PREFIX + "tag");
 //        tableNames.add(TABLE_PREFIX + "auth");
 //        tableNames.add(TABLE_PREFIX + "auth");
 
