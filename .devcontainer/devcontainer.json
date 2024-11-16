@@ -11,12 +11,6 @@
     
     "customizations": {
         "vscode": {
-            "settings" : {
-                "java.compile.nullAnalysis.mode": "automatic",
-                // 禁用插件默认的 java 格式化
-                "java.format.enabled": false,
-                "editor.tabSize": 4
-            },
             "extensions": [
                 // markdown
                 "yzhang.markdown-all-in-one",
