@@ -6,7 +6,7 @@ import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import top.wpaint.marketplus.common.exception.AppException;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.constant.RoleConst;
@@ -67,7 +67,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
 
         if (!body.getType().equals(AuthConst.AUTH_EMAIL)) {
             log.error("其他形式登陆功能未实现");
-            throw new AppException(ResponseStatus.ERROR);
+            throw new AppException(Status.ERROR);
         }
 
         // 此时 accessKey 为 email
@@ -78,11 +78,11 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
             .one();
 
         if (null == user) {
-            throw new AppException(ResponseStatus.USER_NOT_FOUND);
+            throw new AppException(Status.USER_NOT_FOUND);
         }
 
         if (user.getIsEnable().equals(LogicConst.DISABLE)) {
-            throw new AppException(ResponseStatus.USER_NOT_ENABLE);
+            throw new AppException(Status.USER_NOT_ENABLE);
         }
 
         // 查询用户登陆
@@ -93,7 +93,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
                 .one();
 
         if (null == userAuth) {
-            throw new AppException(ResponseStatus.USER_AUTH_TYPE_NOT_SUPPORT);
+            throw new AppException(Status.USER_AUTH_TYPE_NOT_SUPPORT);
         }
 
         // email login
@@ -120,10 +120,10 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
             // 将邮箱设置为 sessionId
             SaSessionCustomUtil.getSessionById("verCode-" + verifyCode.getEmail())
                     .set(verifyCode.getEmail(), verCode);
-            return new VerifyCodeVO(ResponseStatus.SEND_MAIL_OK.getMessage());
+            return new VerifyCodeVO(Status.SEND_MAIL_OK.getMessage());
         }
 
-        throw new AppException(ResponseStatus.ERROR);
+        throw new AppException(Status.ERROR);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
 
         if (null != user) {
             log.warn("用户已经存在 - {}", body.getEmail());
-            throw new AppException(ResponseStatus.USER_EXISTS);
+            throw new AppException(Status.USER_EXISTS);
         }
 
         // 开始注册流程
@@ -147,13 +147,13 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         Integer verCode = sessionById.getInt(body.getEmail());
 
         if (verCode.equals(0)) {
-            throw new AppException(ResponseStatus.MAIL_NOT_SEND);
+            throw new AppException(Status.MAIL_NOT_SEND);
         }
 
         // 验证码匹配
         // TODO 优化这个流程
         if (!verCode.equals(body.getVerCode())) {
-            throw new AppException(ResponseStatus.VERIFY_CODE_NOT_EQ);
+            throw new AppException(Status.VERIFY_CODE_NOT_EQ);
         }
 
         user = User.builder()
@@ -184,6 +184,6 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         // 重置邮箱验证码
         SaSessionCustomUtil.deleteSessionById("verCode-" + body.getEmail());
 
-        return ResponseStatus.REGISTER_OK.getMessage();
+        return Status.REGISTER_OK.getMessage();
     }
 }

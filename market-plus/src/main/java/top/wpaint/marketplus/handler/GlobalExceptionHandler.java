@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.wpaint.marketplus.common.exception.AppException;
-import top.wpaint.marketplus.common.ResponseEntity;
+import top.wpaint.marketplus.common.Result;
 
 @Slf4j
 @ControllerAdvice
@@ -16,8 +16,8 @@ public class GlobalExceptionHandler {
      */
     @ResponseBody
     @ExceptionHandler(AppException.class)
-    public ResponseEntity<String> appExceptionHandler(AppException e) {
+    public Result<String> appExceptionHandler(AppException e) {
         log.error(e.getMessage());
-        return ResponseEntity.error(e.getCode(), e.getMessage());
+        return Result.error(e.getCode(), e.getMessage());
     }
 }

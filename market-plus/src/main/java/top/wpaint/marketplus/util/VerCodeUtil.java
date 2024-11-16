@@ -8,7 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import top.wpaint.marketplus.common.exception.AppException;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -43,7 +43,7 @@ public class VerCodeUtil {
             helper.setText(text, true); // 第二个参数true表示支持HTML格式的邮件
             mailSender.send(message);
         } catch (UnsupportedEncodingException | MessagingException e) {
-            throw new AppException(ResponseStatus.ERROR);
+            throw new AppException(Status.ERROR);
         }
 
         return true;

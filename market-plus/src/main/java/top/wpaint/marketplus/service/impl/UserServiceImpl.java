@@ -1,10 +1,9 @@
 package top.wpaint.marketplus.service.impl;
 
-import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.hutool.core.bean.BeanUtil;
 import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.exception.AppException;
@@ -13,7 +12,6 @@ import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.UserInfoDTO;
 import top.wpaint.marketplus.entity.dto.UserPasswdDTO;
 import top.wpaint.marketplus.entity.table.UserAuthTableDef;
-import top.wpaint.marketplus.entity.table.UserTableDef;
 import top.wpaint.marketplus.entity.vo.UserInfoVO;
 import top.wpaint.marketplus.mapper.UserAuthMapper;
 import top.wpaint.marketplus.mapper.UserMapper;
@@ -82,12 +80,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .one();
 
         if (null == userAuth) {
-            throw new AppException(ResponseStatus.OLD_PASSWORD_NOT_EQ);
+            throw new AppException(Status.OLD_PASSWORD_NOT_EQ);
         }
 
         userAuth.setSecretKey(body.getNewPasswd());
         userAuthMapper.update(userAuth);
 
-        return ResponseStatus.SUCCESS.getMessage();
+        return Status.SUCCESS.getMessage();
     }
 }

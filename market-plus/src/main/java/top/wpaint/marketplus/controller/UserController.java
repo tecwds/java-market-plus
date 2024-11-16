@@ -4,9 +4,9 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.exception.AppException;
-import top.wpaint.marketplus.common.ResponseEntity;
+import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.entity.dto.UserInfoDTO;
 import top.wpaint.marketplus.entity.dto.UserPasswdDTO;
 import top.wpaint.marketplus.entity.vo.UserInfoVO;
@@ -28,18 +28,18 @@ public class UserController {
      * 查 - 用户信息
      */
     @GetMapping("info")
-    public ResponseEntity<UserInfoVO> getUserInfo() throws AppException {
+    public Result<UserInfoVO> getUserInfo() throws AppException {
         log.debug("用户 ID 测试 - {}", StpUtil.getLoginIdAsString());
-        return ResponseEntity.success(userService.doGetUserInfo(StpUtil.getLoginIdAsString()));
+        return Result.success(userService.doGetUserInfo(StpUtil.getLoginIdAsString()));
     }
 
     /**
      * 改 - 用户信息
      */
     @PostMapping("info")
-    public ResponseEntity<UserInfoVO> updateUserInfo(@RequestBody UserInfoDTO body) throws AppException {
+    public Result<UserInfoVO> updateUserInfo(@RequestBody UserInfoDTO body) throws AppException {
         log.debug("用户信息测试 - {}", StpUtil.getLoginIdAsString());
-        return ResponseEntity.success(userService.doUpdateUserInfo(StpUtil.getLoginIdAsString(), body));
+        return Result.success(userService.doUpdateUserInfo(StpUtil.getLoginIdAsString(), body));
     }
 
     /**
@@ -49,16 +49,16 @@ public class UserController {
      * @throws AppException 通用异常
      */
     @PostMapping("passwd")
-    public ResponseEntity<String> updateUserPasswd(@RequestBody UserPasswdDTO body) throws AppException {
+    public Result<String> updateUserPasswd(@RequestBody UserPasswdDTO body) throws AppException {
         log.debug("用户密码测试 - {}", StpUtil.getLoginIdAsString());
 
         if (!body.getNewPasswd().equals(body.getConfirmPasswd())) {
-            return ResponseEntity.error(
-                    ResponseStatus.TWICE_PASSWD_NOT_EQ.getCode(),
-                    ResponseStatus.TWICE_PASSWD_NOT_EQ.getMessage());
+            return Result.error(
+                    Status.TWICE_PASSWD_NOT_EQ.getCode(),
+                    Status.TWICE_PASSWD_NOT_EQ.getMessage());
         }
 
-        return ResponseEntity.success(userService.doUpdateUserPasswd(StpUtil.getLoginIdAsString(), body));
+        return Result.success(userService.doUpdateUserPasswd(StpUtil.getLoginIdAsString(), body));
     }
 
 

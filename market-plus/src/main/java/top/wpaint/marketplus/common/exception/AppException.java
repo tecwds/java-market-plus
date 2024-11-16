@@ -3,7 +3,7 @@ package top.wpaint.marketplus.common.exception;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 
 import java.io.Serial;
 
@@ -44,11 +44,11 @@ public class AppException extends Exception {
         this.code = code;
     }
 
-    public AppException(ResponseStatus status, Throwable cause) {
+    public AppException(Status status, Throwable cause) {
         this(status.getCode(), status.getMessage(), cause);
     }
 
-    public AppException(ResponseStatus status) {
+    public AppException(Status status) {
         this(status.getCode(), status.getMessage());
     }
 

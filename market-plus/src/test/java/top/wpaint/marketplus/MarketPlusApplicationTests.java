@@ -1,6 +1,9 @@
 package top.wpaint.marketplus;
 
-import com.mybatisflex.core.query.QueryChain;
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
+import com.mybatisflex.core.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,17 +11,12 @@ import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.GenderConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.constant.RoleConst;
-import top.wpaint.marketplus.entity.Auth;
-import top.wpaint.marketplus.entity.Role;
-import top.wpaint.marketplus.entity.User;
-import top.wpaint.marketplus.entity.UserAuth;
-import top.wpaint.marketplus.service.AuthService;
-import top.wpaint.marketplus.service.RoleService;
-import top.wpaint.marketplus.service.UserAuthService;
-import top.wpaint.marketplus.service.UserService;
+import top.wpaint.marketplus.entity.*;
+import top.wpaint.marketplus.service.*;
 import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
 
 import java.math.BigInteger;
+import java.util.List;
 
 @SpringBootTest
 class MarketPlusApplicationTests {
@@ -36,8 +34,7 @@ class MarketPlusApplicationTests {
     private UserAuthService userAuthService;
 
     @Test
-    void contextLoads() {
-    }
+    void contextLoads() {}
 
 //    @Test
     void roleDataGenTest() {
@@ -49,6 +46,9 @@ class MarketPlusApplicationTests {
             .build();
         roleService.save(role);
     }
+
+    @Test
+    void testM2M() {}
 
 //    @Test
     void userDataGenTest() {

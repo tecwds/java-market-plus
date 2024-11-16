@@ -15,7 +15,11 @@ import java.util.ArrayList;
 
 public class CodegenUtils {
     //    private static final String SOURCE_DIR = "/home/wpan/Desktop";
-    private static final String SOURCE_DIR = "/home/wpan/Documents/@ProjectSpace/@ByLanguage/@Java/java-market-plus/market-plus";
+//     private static final String SOURCE_DIR = "/home/wpan/Documents/@ProjectSpace/@ByLanguage/@Java/java-market-plus/market-plus";
+
+    // 开发容器
+
+    private static final String SOURCE_DIR = "/workspace/java-market-plus/market-plus";
     private static final String BASE_PACKAGE = "top.wpaint.marketplus";
     private static final String TABLE_PREFIX = "wb_";
 
@@ -28,6 +32,7 @@ public class CodegenUtils {
         dataSource.setJdbcUrl("jdbc:mysql://sh-cynosdbmysql-grp-09nvk3xa.sql.tencentcdb.com:22763/market_plus_db?characterEncoding=utf-8");
         dataSource.setUsername("wpanMarket");
         dataSource.setPassword("market123@wpan");
+
 
         GlobalConfig config = createGlobalConfig();
 
@@ -75,8 +80,6 @@ public class CodegenUtils {
         tableNames.add(TABLE_PREFIX + "user_auth");
         tableNames.add(TABLE_PREFIX + "category");
         tableNames.add(TABLE_PREFIX + "tag");
-//        tableNames.add(TABLE_PREFIX + "auth");
-//        tableNames.add(TABLE_PREFIX + "auth");
 
         for (String table : tableNames) {
             globalConfig.setColumnConfig(

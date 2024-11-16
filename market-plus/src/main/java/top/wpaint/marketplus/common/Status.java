@@ -3,7 +3,7 @@ package top.wpaint.marketplus.common;
 import lombok.Getter;
 
 @Getter
-public enum ResponseStatus {
+public enum Status {
     SUCCESS(200, "成功"),
     SEND_MAIL_OK(200, "发送成功，请验收"),
     REGISTER_OK(200, "注册成功"),
@@ -19,13 +19,11 @@ public enum ResponseStatus {
     OLD_PASSWORD_NOT_EQ(400, "旧密码不正确"),
     TWICE_PASSWD_NOT_EQ(400, "两次输入密码不匹配");
 
-
-
     private final int code;
 
     private final String message;
 
-    ResponseStatus(int code, String msg) {
+    Status(int code, String msg) {
         this.code = code;
         this.message = msg;
     }
