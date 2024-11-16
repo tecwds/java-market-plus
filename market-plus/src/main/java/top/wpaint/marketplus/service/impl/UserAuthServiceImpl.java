@@ -45,9 +45,7 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
 
     private final VerCodeUtil verCodeUtil;
 
-    public UserAuthServiceImpl(
-            UserMapper userMapper,
-            UserAuthMapper userAuthMapper,
+    public UserAuthServiceImpl(UserMapper userMapper, UserAuthMapper userAuthMapper,
             UserAuthServiceSupport userAuthServiceSupport, VerCodeUtil verCodeUtil) {
         this.userMapper = userMapper;
         this.userAuthMapper = userAuthMapper;
@@ -71,11 +69,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         }
 
         // 此时 accessKey 为 email
-        User user = QueryChain.of(userMapper)
-            .select(UserTableDef.USER.DEFAULT_COLUMNS)
-            .from(UserTableDef.USER)
-            .where(UserTableDef.USER.EMAIL.eq(body.getAccessKey()))
-            .one();
+        User user = QueryChain.of(userMapper).select(UserTableDef.USER.DEFAULT_COLUMNS).from(UserTableDef.USER)
+                .where(UserTableDef.USER.EMAIL.eq(body.getAccessKey())).one();
 
         if (null == user) {
             throw new AppException(Status.USER_NOT_FOUND);
@@ -86,10 +81,9 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         }
 
         // 查询用户登陆
-        UserAuth userAuth = QueryChain.of(userAuthMapper)
-                .select(UserAuthTableDef.USER_AUTH.DEFAULT_COLUMNS)
-                .from(UserAuthTableDef.USER_AUTH)
-                .where(UserAuthTableDef.USER_AUTH.USER_ID.eq(user.getUserId()).and(UserAuthTableDef.USER_AUTH.AUTH_TYPE.eq(body.getType())))
+        UserAuth userAuth = QueryChain.of(userAuthMapper).select(UserAuthTableDef.USER_AUTH.DEFAULT_COLUMNS)
+                .from(UserAuthTableDef.USER_AUTH).where(UserAuthTableDef.USER_AUTH.USER_ID.eq(user.getUserId())
+                        .and(UserAuthTableDef.USER_AUTH.AUTH_TYPE.eq(body.getType())))
                 .one();
 
         if (null == userAuth) {
@@ -112,14 +106,13 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         log.info("verCode = {}", verCode);
 
         // test
-//        Boolean isSendOk = true;
+        // Boolean isSendOk = true;
         Boolean isSendOk = verCodeUtil.sendSimpleMessage(verifyCode.getEmail(), verCode.toString());
 
         if (isSendOk) {
-//            VerifyCodeHolder.add(verifyCode.getEmail(), verCode);
+            // VerifyCodeHolder.add(verifyCode.getEmail(), verCode);
             // 将邮箱设置为 sessionId
-            SaSessionCustomUtil.getSessionById("verCode-" + verifyCode.getEmail())
-                    .set(verifyCode.getEmail(), verCode);
+            SaSessionCustomUtil.getSessionById("verCode-" + verifyCode.getEmail()).set(verifyCode.getEmail(), verCode);
             return new VerifyCodeVO(Status.SEND_MAIL_OK.getMessage());
         }
 
@@ -129,11 +122,8 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
     @Override
     public String doRegister(RegisterDTO body) throws AppException {
         // 检查用户是否存在
-        User user = QueryChain.of(userMapper)
-                .select(UserTableDef.USER.DEFAULT_COLUMNS)
-                .from(UserTableDef.USER)
-                .where(UserTableDef.USER.EMAIL.eq(body.getEmail()))
-                .one();
+        User user = QueryChain.of(userMapper).select(UserTableDef.USER.DEFAULT_COLUMNS).from(UserTableDef.USER)
+                .where(UserTableDef.USER.EMAIL.eq(body.getEmail())).one();
 
         if (null != user) {
             log.warn("用户已经存在 - {}", body.getEmail());
@@ -156,21 +146,12 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
             throw new AppException(Status.VERIFY_CODE_NOT_EQ);
         }
 
-        user = User.builder()
-                .userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
-                .email(body.getEmail())
-                .authType(AuthConst.AUTH_EMAIL)
-                .roleName(RoleConst.R_USER)
-                .build();
+        user = User.builder().userId(new BigInteger(String.valueOf(new SnowflakeDistributeIdUtil(0, 0).nextId())))
+                .email(body.getEmail()).authType(AuthConst.AUTH_EMAIL).roleName(RoleConst.R_USER).build();
 
-        UserAuth userAuth = UserAuth.builder()
-                .userId(user.getUserId())
-                .accessKey(body.getEmail())
-                .secretKey(body.getPassword())
-                .authName(AuthConst.A_EMAIL_NAME)
-                .authType(AuthConst.AUTH_EMAIL)
-                .description("邮箱登陆")
-                .build();
+        UserAuth userAuth = UserAuth.builder().userId(user.getUserId()).accessKey(body.getEmail())
+                .secretKey(body.getPassword()).authName(AuthConst.A_EMAIL_NAME).authType(AuthConst.AUTH_EMAIL)
+                .description("邮箱登陆").build();
 
         userMapper.insert(user);
         userAuthMapper.insert(userAuth);

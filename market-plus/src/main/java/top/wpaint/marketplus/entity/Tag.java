@@ -18,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-11-14
+ * @since 2024-11-16
  */
 @Data
 @Builder
@@ -29,6 +29,7 @@ public class Tag implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
+
     /**
      * 表 ID,用于快速索引
      */
