@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-11-14
  */
-public class UserAuthTableDef extends TableDef {
+public class TagTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,27 +19,22 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 
      */
-    public static final UserAuthTableDef USER_AUTH = new UserAuthTableDef();
+    public static final TagTableDef TAG = new TagTableDef();
 
     /**
-     * 表 ID，用于快速索引
+     * 表 ID,用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 关联用户 ID
+     * 标签名称
      */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
+    public final QueryColumn NAME = new QueryColumn(this, "name");
 
     /**
-     * 认证名称
+     * 标签 ID
      */
-    public final QueryColumn AUTH_NAME = new QueryColumn(this, "auth_name");
-
-    /**
-     * 认证类型
-     */
-    public final QueryColumn AUTH_TYPE = new QueryColumn(this, "auth_type");
+    public final QueryColumn TAG_ID = new QueryColumn(this, "tag_id");
 
     /**
      * 是否启用（激活）
@@ -47,19 +42,9 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
 
     /**
-     * 登录时的用户名、邮箱或者第三方Token
-     */
-    public final QueryColumn ACCESS_KEY = new QueryColumn(this, "access_key");
-
-    /**
      * 是否删除（逻辑删除）
      */
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
-
-    /**
-     * 密码，如果存在
-     */
-    public final QueryColumn SECRET_KEY = new QueryColumn(this, "secret_key");
 
     /**
      * 创建时间
@@ -67,7 +52,7 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
-     * 认证描述
+     * 标签描述
      */
     public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
 
@@ -84,19 +69,19 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, TAG_ID, NAME, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
-    public UserAuthTableDef() {
-        super("", "wb_user_auth");
+    public TagTableDef() {
+        super("", "wb_tag");
     }
 
-    private UserAuthTableDef(String schema, String name, String alisa) {
+    private TagTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public UserAuthTableDef as(String alias) {
+    public TagTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new UserAuthTableDef("", "wb_user_auth", alias));
+        return getCache(key, k -> new TagTableDef("", "wb_tag", alias));
     }
 
 }

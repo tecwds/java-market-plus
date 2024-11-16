@@ -2,7 +2,7 @@ package top.wpaint.marketplus.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
-import top.wpaint.marketplus.entity.User;
+import top.wpaint.marketplus.entity.Tag;
 
 /**
  *  映射层。
@@ -11,6 +11,6 @@ import top.wpaint.marketplus.entity.User;
  * @since 2024-11-14
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface TagMapper extends BaseMapper<Tag> {
 
 }

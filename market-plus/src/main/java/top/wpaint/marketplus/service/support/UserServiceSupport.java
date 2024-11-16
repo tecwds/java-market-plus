@@ -2,7 +2,7 @@ package top.wpaint.marketplus.service.support;
 
 import com.mybatisflex.core.query.QueryChain;
 import org.springframework.stereotype.Component;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.User;
 import top.wpaint.marketplus.entity.table.UserTableDef;
@@ -25,7 +25,7 @@ public class UserServiceSupport {
             .one();
 
         if (null == user) {
-            throw new AppException(ResponseStatus.USER_NOT_FOUND);
+            throw new AppException(Status.USER_NOT_FOUND);
         }
 
         return user;

@@ -13,7 +13,6 @@ spring:
     username: tecwds@163.com
     password: TEtCAZatg6P7bdGC
     
-
 sa-token:
   # token 名称（同时也是 cookie 名称）
   token-name: satoken

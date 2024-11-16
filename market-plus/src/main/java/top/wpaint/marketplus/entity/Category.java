@@ -24,30 +24,30 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(value = "wb_role")
-public class Role implements Serializable {
+@Table(value = "wb_category")
+public class Category implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 表 ID，用于快速索引
+     * 表 ID,用于快速索引
      */
     @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
 
     /**
-     * 角色 ID
+     * 分类 ID
      */
-    private BigInteger roleId;
+    private BigInteger categoryId;
 
     /**
-     * 角色名称
+     * 分类名称
      */
-    private String roleName;
+    private String name;
 
     /**
-     * 角色描述
+     * 分类描述
      */
     private String description;
 

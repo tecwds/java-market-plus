@@ -4,11 +4,10 @@ import cn.dev33.satoken.stp.StpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.wpaint.marketplus.common.exception.AppException;
-import top.wpaint.marketplus.common.ResponseStatus;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.vo.LoginVO;
-import top.wpaint.marketplus.mapper.UserAuthMapper;
 
 @Slf4j
 @Component
@@ -26,6 +25,6 @@ public class UserAuthServiceSupport {
             return new LoginVO(StpUtil.getTokenValue());
         }
 
-        throw new AppException(ResponseStatus.USERNAME_OR_PASSWD_ERR);
+        throw new AppException(Status.USERNAME_OR_PASSWD_ERR);
     }
 }
