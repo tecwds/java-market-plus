@@ -61,5 +61,5 @@ public class UserController {
         return Result.success(userService.doUpdateUserPasswd(StpUtil.getLoginIdAsString(), body));
     }
 
-
+    
 }
