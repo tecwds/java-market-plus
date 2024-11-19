@@ -37,7 +37,7 @@ public class CategoryController {
     // @SaCheckLogin
     public Result<List<Category>> listCategory() {
         // log.debug("分类查看测试 - {}", StpUtil.getLoginIdAsString());
-        return categoryService.doListCategory();
+        return Result.success(categoryService.doListCategory());
     }
 
     /**
@@ -50,7 +50,7 @@ public class CategoryController {
     public Result<String> addCategory(@RequestBody List<CategoryDTO> body) throws AppException {
         log.debug("测试 - 添加 category -- {}", body);
 
-        return categoryService.doAddCategory(body);
+        return Result.success(categoryService.doAddCategory(body));
     }
 
     

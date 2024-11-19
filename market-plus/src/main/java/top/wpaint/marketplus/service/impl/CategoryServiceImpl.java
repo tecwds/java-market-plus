@@ -3,7 +3,6 @@ package top.wpaint.marketplus.service.impl;
 import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
-import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.exception.AppException;
@@ -41,21 +40,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     @Override
-    public Result<List<Category>> doListCategory() {
-        List<Category> categories = new ArrayList<>();
-
-        categories = QueryChain.of(categoryMapper)
-                .select(CategoryTableDef.CATEGORY.DEFAULT_COLUMNS)
-                .from(CategoryTableDef.CATEGORY)
-                .list();
-
-        return Result.success(categories);
+    public List<Category> doListCategory() {
+        return QueryChain.of(categoryMapper)
+        .select(CategoryTableDef.CATEGORY.DEFAULT_COLUMNS)
+        .from(CategoryTableDef.CATEGORY)
+        .list();
     }
 
     @Override
-    public Result<String> doAddCategory(List<CategoryDTO> body) throws AppException {
+    public String doAddCategory(List<CategoryDTO> body) throws AppException {
         // 检查标签是否存在过
-        Map<String, Category> collect = doListCategory().getData().stream()
+        Map<String, Category> collect = doListCategory().stream()
                 .collect(Collectors.toMap(Category::getName, Function.identity()));
         ;
         List<Category> batch = new ArrayList<>();
@@ -70,7 +65,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         });
 
         categoryMapper.insertBatch(batch);
-        return Result.success(Status.SUCCESS.getMessage());
+        return Status.SUCCESS.getMessage();
     }
 
 }

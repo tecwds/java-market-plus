@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.mybatisflex.core.service.IService;
 
-import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.Category;
 import top.wpaint.marketplus.entity.dto.CategoryDTO;
@@ -17,8 +16,8 @@ import top.wpaint.marketplus.entity.dto.CategoryDTO;
  */
 public interface CategoryService extends IService<Category> {
 
-    Result<List<Category>> doListCategory();
+    List<Category> doListCategory();
 
-    Result<String> doAddCategory(List<CategoryDTO> body) throws AppException;
+    String doAddCategory(List<CategoryDTO> body) throws AppException;
 
 }
