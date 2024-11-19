@@ -24,8 +24,8 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(value = "wb_store")
-public class Store implements Serializable {
+@Table(value = "wb_user_address")
+public class UserAddress implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,24 +37,44 @@ public class Store implements Serializable {
     private BigInteger id;
 
     /**
-     * 店铺 ID
+     * 地址 ID
      */
-    private BigInteger storeId;
+    private BigInteger addressId;
 
     /**
-     * 店铺所有者ID
+     * 关联用户ID
      */
     private BigInteger userId;
 
     /**
-     * 店铺名称
+     * 姓名
      */
     private String name;
 
     /**
-     * 店铺详细信息
+     * 手机号码
      */
-    private String description;
+    private String mobile;
+
+    /**
+     * 省
+     */
+    private String province;
+
+    /**
+     * 市
+     */
+    private String city;
+
+    /**
+     * 区
+     */
+    private String country;
+
+    /**
+     * 详细地址
+     */
+    private String detail;
 
     /**
      * 创建时间

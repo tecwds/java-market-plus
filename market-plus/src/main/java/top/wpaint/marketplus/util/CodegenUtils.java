@@ -82,6 +82,7 @@ public class CodegenUtils {
         tableNames.add(TABLE_PREFIX + "product_tag");
         tableNames.add(TABLE_PREFIX + "store");
         tableNames.add(TABLE_PREFIX + "order");
+        tableNames.add(TABLE_PREFIX + "user_address");
 
         for (String table : tableNames) {
             globalConfig.setColumnConfig(table, ColumnConfig.builder().build().setColumnName("id")
