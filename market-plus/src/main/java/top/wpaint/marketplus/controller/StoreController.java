@@ -1,6 +1,7 @@
 package top.wpaint.marketplus.controller;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,13 +30,9 @@ public class StoreController {
      * 开一个新店
      * @return 结果
      */
-    @PostMapping()
+    @PutMapping
     public Result<StoreVO> openNewStore(@RequestBody StoreDTO body) throws AppException {
         log.debug("add new store -- {}", body);
-        return storeService.doOpenNewStore(body);
+        return Result.success(storeService.doOpenNewStore(body));
     }
-
-    
-
-
 }
