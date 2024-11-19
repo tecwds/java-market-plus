@@ -23,6 +23,9 @@
                 // lombok support
                 "vscjava.vscode-lombok"
             ]
+        },
+        "jetbrains": {
+            
         }
     }
 }
