@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodegenUtils",
+            "request": "launch",
+            "mainClass": "top.wpaint.marketplus.util.CodegenUtils",
+            "projectName": "market-plus"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MarketPlusApplication<market-plus>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "top.wpaint.marketplus.MarketPlusApplication",
+            "projectName": "market-plus",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
