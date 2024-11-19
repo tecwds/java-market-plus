@@ -2,7 +2,7 @@ package top.wpaint.marketplus.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
-import top.wpaint.marketplus.entity.Auth;
+import top.wpaint.marketplus.entity.Order;
 
 /**
  *  映射层。
@@ -11,6 +11,6 @@ import top.wpaint.marketplus.entity.Auth;
  * @since 2024-11-19
  */
 @Mapper
-public interface AuthMapper extends BaseMapper<Auth> {
+public interface OrderMapper extends BaseMapper<Order> {
 
 }

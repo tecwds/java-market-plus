@@ -27,7 +27,6 @@ public class UserServiceSupport {
         if (null == user) {
             throw new AppException(Status.USER_NOT_FOUND);
         }
-
         return user;
     }
 

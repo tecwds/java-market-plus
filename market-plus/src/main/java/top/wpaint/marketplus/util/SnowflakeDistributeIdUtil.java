@@ -67,7 +67,7 @@ public class SnowflakeDistributeIdUtil {
      *
      * @return SnowflakeId
      */
-    public synchronized long nextId() {
+    public synchronized Long nextId() {
         long timestamp = timeGen();
 
         //如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过这个时候应当抛出异常

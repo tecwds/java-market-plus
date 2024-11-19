@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-11-19
  */
-public class TagTableDef extends TableDef {
+public class StoreTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,22 +19,27 @@ public class TagTableDef extends TableDef {
     /**
      * 
      */
-    public static final TagTableDef TAG = new TagTableDef();
+    public static final StoreTableDef STORE = new StoreTableDef();
 
     /**
-     * 表 ID,用于快速索引
+     * 表 ID，用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 标签名称
+     * 店铺名称
      */
     public final QueryColumn NAME = new QueryColumn(this, "name");
 
     /**
-     * 标签 ID
+     * 店铺所有者ID
      */
-    public final QueryColumn TAG_ID = new QueryColumn(this, "tag_id");
+    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
+
+    /**
+     * 店铺 ID
+     */
+    public final QueryColumn STORE_ID = new QueryColumn(this, "store_id");
 
     /**
      * 是否启用（激活）
@@ -52,7 +57,7 @@ public class TagTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
-     * 标签描述
+     * 店铺详细信息
      */
     public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
 
@@ -69,19 +74,19 @@ public class TagTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, TAG_ID, NAME, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, STORE_ID, USER_ID, NAME, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
-    public TagTableDef() {
-        super("", "wb_tag");
+    public StoreTableDef() {
+        super("", "wb_store");
     }
 
-    private TagTableDef(String schema, String name, String alisa) {
+    private StoreTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public TagTableDef as(String alias) {
+    public StoreTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new TagTableDef("", "wb_tag", alias));
+        return getCache(key, k -> new StoreTableDef("", "wb_store", alias));
     }
 
 }

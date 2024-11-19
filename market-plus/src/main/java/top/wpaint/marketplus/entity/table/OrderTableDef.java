@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-11-19
  */
-public class UserAuthTableDef extends TableDef {
+public class OrderTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 
      */
-    public static final UserAuthTableDef USER_AUTH = new UserAuthTableDef();
+    public static final OrderTableDef ORDER = new OrderTableDef();
 
     /**
      * 表 ID，用于快速索引
@@ -27,19 +27,22 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 关联用户 ID
+     * 成交单价
      */
+    public final QueryColumn PRICE = new QueryColumn(this, "price");
+
+    
     public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
 
     /**
-     * 认证名称
+     * 订单 ID
      */
-    public final QueryColumn AUTH_NAME = new QueryColumn(this, "auth_name");
+    public final QueryColumn ORDER_ID = new QueryColumn(this, "order_id");
 
     /**
-     * 认证类型
+     * 购买来源店铺ID
      */
-    public final QueryColumn AUTH_TYPE = new QueryColumn(this, "auth_type");
+    public final QueryColumn STORE_ID = new QueryColumn(this, "store_id");
 
     /**
      * 是否启用（激活）
@@ -47,9 +50,9 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
 
     /**
-     * 登录时的用户名、邮箱或者第三方Token
+     * 成交数量
      */
-    public final QueryColumn ACCESS_KEY = new QueryColumn(this, "access_key");
+    public final QueryColumn QUANTITY = new QueryColumn(this, "quantity");
 
     /**
      * 是否删除（逻辑删除）
@@ -57,9 +60,14 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
 
     /**
-     * 密码，如果存在
+     * 购买的商品ID
      */
-    public final QueryColumn SECRET_KEY = new QueryColumn(this, "secret_key");
+    public final QueryColumn PRODUCT_ID = new QueryColumn(this, "product_id");
+
+    /**
+     * 店铺名称
+     */
+    public final QueryColumn STORE_NAME = new QueryColumn(this, "store_name");
 
     /**
      * 创建时间
@@ -67,14 +75,19 @@ public class UserAuthTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
-     * 认证描述
+     * 总成交价格
      */
-    public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
+    public final QueryColumn TOTAL_PRICE = new QueryColumn(this, "total_price");
 
     /**
      * 修改时间
      */
     public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
+
+    /**
+     * 商品名称
+     */
+    public final QueryColumn PRODUCT_NAME = new QueryColumn(this, "product_name");
 
     /**
      * 所有字段。
@@ -84,19 +97,19 @@ public class UserAuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AUTH_NAME, AUTH_TYPE, DESCRIPTION, ACCESS_KEY, SECRET_KEY, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, ORDER_ID, USER_ID, STORE_ID, PRODUCT_ID, STORE_NAME, PRODUCT_NAME, PRICE, QUANTITY, TOTAL_PRICE, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
-    public UserAuthTableDef() {
-        super("", "wb_user_auth");
+    public OrderTableDef() {
+        super("", "wb_order");
     }
 
-    private UserAuthTableDef(String schema, String name, String alisa) {
+    private OrderTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public UserAuthTableDef as(String alias) {
+    public OrderTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new UserAuthTableDef("", "wb_user_auth", alias));
+        return getCache(key, k -> new OrderTableDef("", "wb_order", alias));
     }
 
 }

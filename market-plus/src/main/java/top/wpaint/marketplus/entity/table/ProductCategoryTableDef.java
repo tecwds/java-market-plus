@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-11-19
  */
-public class CategoryTableDef extends TableDef {
+public class ProductCategoryTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,17 +19,12 @@ public class CategoryTableDef extends TableDef {
     /**
      * 
      */
-    public static final CategoryTableDef CATEGORY = new CategoryTableDef();
+    public static final ProductCategoryTableDef PRODUCT_CATEGORY = new ProductCategoryTableDef();
 
     /**
-     * 表 ID,用于快速索引
+     * 表 ID，用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
-
-    /**
-     * 分类名称
-     */
-    public final QueryColumn NAME = new QueryColumn(this, "name");
 
     /**
      * 是否启用（激活）
@@ -42,7 +37,12 @@ public class CategoryTableDef extends TableDef {
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
 
     /**
-     * 分类 ID
+     * 关联商品 ID
+     */
+    public final QueryColumn PRODUCT_ID = new QueryColumn(this, "product_id");
+
+    /**
+     * 关联分类ID
      */
     public final QueryColumn CATEGORY_ID = new QueryColumn(this, "category_id");
 
@@ -50,11 +50,6 @@ public class CategoryTableDef extends TableDef {
      * 创建时间
      */
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
-
-    /**
-     * 分类描述
-     */
-    public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
 
     /**
      * 修改时间
@@ -69,19 +64,19 @@ public class CategoryTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, CATEGORY_ID, NAME, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, PRODUCT_ID, CATEGORY_ID, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
-    public CategoryTableDef() {
-        super("", "wb_category");
+    public ProductCategoryTableDef() {
+        super("", "wb_product_category");
     }
 
-    private CategoryTableDef(String schema, String name, String alisa) {
+    private ProductCategoryTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public CategoryTableDef as(String alias) {
+    public ProductCategoryTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new CategoryTableDef("", "wb_category", alias));
+        return getCache(key, k -> new ProductCategoryTableDef("", "wb_product_category", alias));
     }
 
 }

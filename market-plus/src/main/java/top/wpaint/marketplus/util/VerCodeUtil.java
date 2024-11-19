@@ -26,9 +26,9 @@ public class VerCodeUtil {
     /**
      * 发送邮件的方法
      *
-     * @param to 接收者邮箱地址
+     * @param to      接收者邮箱地址
      * @param subject 邮件主题
-     * @param text 邮件内容
+     * @param text    邮件内容
      * @return 发送结果
      */
     public Boolean sendSimpleMessage(String to, String text) throws AppException {
@@ -42,7 +42,8 @@ public class VerCodeUtil {
             helper.setSubject("潘的大超市 - 注册验证码");
             helper.setText(text, true); // 第二个参数true表示支持HTML格式的邮件
             mailSender.send(message);
-        } catch (UnsupportedEncodingException | MessagingException e) {
+        }
+        catch (UnsupportedEncodingException | MessagingException e) {
             throw new AppException(Status.ERROR);
         }
 

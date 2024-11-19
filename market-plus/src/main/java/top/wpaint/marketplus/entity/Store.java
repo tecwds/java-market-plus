@@ -1,8 +1,6 @@
 package top.wpaint.marketplus.entity;
 
-import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -24,55 +22,56 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(value = "wb_category")
-public class Category implements Serializable {
+@Table(value = "wb_store")
+public class Store implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 表 ID,用于快速索引
+     * 表 ID，用于快速索引
      */
-    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
+    @Id
     private BigInteger id;
 
     /**
-     * 分类 ID
+     * 店铺 ID
      */
-    private BigInteger categoryId;
+    private BigInteger storeId;
 
     /**
-     * 分类名称
+     * 店铺所有者ID
      */
-    private String name;
+    private BigInteger userId;
 
     /**
-     * 分类描述
+     * 店铺名称
      */
-    private String description;
+    private Integer name;
+
+    /**
+     * 店铺详细信息
+     */
+    private Integer description;
 
     /**
      * 创建时间
      */
-    @Column(onInsertValue = "now()")
     private LocalDateTime gmtCreated;
 
     /**
      * 修改时间
      */
-    @Column(onInsertValue = "now()", onUpdateValue = "now()")
     private LocalDateTime gmtModified;
 
     /**
      * 是否删除（逻辑删除）
      */
-    @Column(onInsertValue = "0", isLogicDelete = true)
     private Integer isDeleted;
 
     /**
      * 是否启用（激活）
      */
-    @Column(onInsertValue = "0")
     private Integer isEnable;
 
 }
