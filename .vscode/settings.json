@@ -6,5 +6,6 @@
     "[java]": {
         "editor.insertSpaces": true,
         "editor.detectIndentation": false
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
