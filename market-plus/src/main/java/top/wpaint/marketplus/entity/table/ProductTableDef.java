@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-11-19
  */
-public class TagTableDef extends TableDef {
+public class ProductTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,22 +19,32 @@ public class TagTableDef extends TableDef {
     /**
      * 
      */
-    public static final TagTableDef TAG = new TagTableDef();
+    public static final ProductTableDef PRODUCT = new ProductTableDef();
 
     /**
-     * 表 ID,用于快速索引
+     * 表 ID，用于快速索引
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 标签名称
+     * 商品名称
      */
     public final QueryColumn NAME = new QueryColumn(this, "name");
 
     /**
-     * 标签 ID
+     * 商品价格
      */
-    public final QueryColumn TAG_ID = new QueryColumn(this, "tag_id");
+    public final QueryColumn PRICE = new QueryColumn(this, "price");
+
+    /**
+     * 商品图片
+     */
+    public final QueryColumn PICTURE = new QueryColumn(this, "picture");
+
+    /**
+     * 商品所属商户ID
+     */
+    public final QueryColumn STORE_ID = new QueryColumn(this, "store_id");
 
     /**
      * 是否启用（激活）
@@ -42,9 +52,19 @@ public class TagTableDef extends TableDef {
     public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
 
     /**
+     * 商品数量
+     */
+    public final QueryColumn QUANTITY = new QueryColumn(this, "quantity");
+
+    /**
      * 是否删除（逻辑删除）
      */
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
+
+    /**
+     * 商品 ID
+     */
+    public final QueryColumn PRODUCT_ID = new QueryColumn(this, "product_id");
 
     /**
      * 创建时间
@@ -52,7 +72,7 @@ public class TagTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
-     * 标签描述
+     * 商品描述
      */
     public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
 
@@ -69,19 +89,19 @@ public class TagTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, TAG_ID, NAME, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, PRODUCT_ID, STORE_ID, NAME, DESCRIPTION, PICTURE, PRICE, QUANTITY, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
-    public TagTableDef() {
-        super("", "wb_tag");
+    public ProductTableDef() {
+        super("", "wb_product");
     }
 
-    private TagTableDef(String schema, String name, String alisa) {
+    private ProductTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public TagTableDef as(String alias) {
+    public ProductTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new TagTableDef("", "wb_tag", alias));
+        return getCache(key, k -> new ProductTableDef("", "wb_product", alias));
     }
 
 }

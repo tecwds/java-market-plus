@@ -1,9 +1,5 @@
 package top.wpaint.marketplus;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONArray;
-import cn.hutool.json.JSONObject;
-import com.mybatisflex.core.query.QueryWrapper;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +12,6 @@ import top.wpaint.marketplus.service.*;
 import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
 
 import java.math.BigInteger;
-import java.util.List;
 
 @SpringBootTest
 class MarketPlusApplicationTests {

@@ -69,7 +69,9 @@ public class UserAuthServiceImpl extends ServiceImpl<UserAuthMapper, UserAuth> i
         }
 
         // 此时 accessKey 为 email
-        User user = QueryChain.of(userMapper).select(UserTableDef.USER.DEFAULT_COLUMNS).from(UserTableDef.USER)
+        User user = QueryChain.of(userMapper)
+                .select(UserTableDef.USER.DEFAULT_COLUMNS)
+                .from(UserTableDef.USER)
                 .where(UserTableDef.USER.EMAIL.eq(body.getAccessKey())).one();
 
         if (null == user) {
