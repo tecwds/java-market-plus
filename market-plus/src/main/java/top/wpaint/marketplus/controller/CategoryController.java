@@ -43,7 +43,7 @@ public class CategoryController {
     /**
      * 添加新的分类
      * @param body
-     * @return
+     * @return Result<String>
      * @throws AppException
      */
     @PutMapping
@@ -52,4 +52,6 @@ public class CategoryController {
 
         return categoryService.doAddCategory(body);
     }
+
+    
 }
