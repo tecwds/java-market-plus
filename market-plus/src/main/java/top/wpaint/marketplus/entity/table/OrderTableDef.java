@@ -97,7 +97,7 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, ORDER_ID, USER_ID, STORE_ID, PRODUCT_ID, STORE_NAME, PRODUCT_NAME, PRICE, QUANTITY, TOTAL_PRICE, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, ORDER_ID, USER_ID, STORE_ID, PRODUCT_ID, STORE_NAME, PRODUCT_NAME, PRICE, QUANTITY, TOTAL_PRICE, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
 
     public OrderTableDef() {
         super("", "wb_order");
