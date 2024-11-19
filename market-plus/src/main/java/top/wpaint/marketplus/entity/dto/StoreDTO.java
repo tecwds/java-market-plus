@@ -2,23 +2,23 @@ package top.wpaint.marketplus.entity.dto;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigInteger;
 
-import lombok.Getter;
-import lombok.ToString;
-
-@Getter
-@ToString
-public class CategoryDTO implements Serializable {
+public class StoreDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+    /**
+     * 店铺所有者ID
+     */
+    private BigInteger userId;
 
     /**
-     * 分类名称
+     * 店铺名称
      */
     private String name;
 
     /**
-     * 分类描述
+     * 店铺详细信息
      */
     private String description;
 }
