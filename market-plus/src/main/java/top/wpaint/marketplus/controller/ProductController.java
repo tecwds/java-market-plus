@@ -33,15 +33,15 @@ public class ProductController {
     @PutMapping
     public Result<ProductVO> putProduct(@RequestBody ProductDTO body) throws AppException {
         log.debug("添加新的商品 -- {}", body);
-        return productService.doPutProduct(body);
+        return Result.success(productService.doPutProduct(body));
     }
 
     /**
      * 批量添加新的商品
      */
-    @PutMapping
+    @PutMapping("batch")
     public Result<List<ProductVO>> putBatchProduct(@RequestBody List<ProductDTO> body) throws AppException {
         log.debug("批量添加新的商品 -- 数量为 {}", body.size());
-        return productService.doPutBatchProduct(body);
+        return Result.success(productService.doPutBatchProduct(body));
     }
 }
