@@ -60,7 +60,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                     .categoryId(BigInteger.valueOf(snowUtils.nextId()))
                     .name(item.getName())
                     .description(item.getDescription())
-                    .isDeleted(LogicConst.NOT_DELETED)
+                    .isEnable(LogicConst.ENABLE)
                     .build());
         });
 
