@@ -1,7 +1,11 @@
 package top.wpaint.marketplus.service;
 
 import com.mybatisflex.core.service.IService;
+
+import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.Store;
+import top.wpaint.marketplus.entity.dto.StoreDTO;
+import top.wpaint.marketplus.entity.vo.StoreVO;
 
 /**
  *  服务层。
@@ -10,5 +14,7 @@ import top.wpaint.marketplus.entity.Store;
  * @since 2024-11-19
  */
 public interface StoreService extends IService<Store> {
+
+    StoreVO doOpenNewStore(StoreDTO body) throws AppException;
 
 }
