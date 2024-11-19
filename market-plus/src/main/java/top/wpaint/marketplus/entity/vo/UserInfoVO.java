@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
@@ -14,7 +16,9 @@ import java.math.BigInteger;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserInfoVO {
+public class UserInfoVO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     /**
      * 用户 ID
      */

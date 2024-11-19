@@ -1,5 +1,8 @@
 package top.wpaint.marketplus.entity.dto;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserPasswdDTO {
-
+public class UserPasswdDTO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     /**
      * 旧密码
      */
