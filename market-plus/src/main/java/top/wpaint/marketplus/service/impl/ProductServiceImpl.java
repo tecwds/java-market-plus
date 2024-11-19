@@ -51,7 +51,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             throw new AppException(Status.ERROR);
         }
 
-        return (ProductVO) pd;
+        ProductVO vo = new ProductVO();
+        BeanUtils.copyProperties(pd, vo);
+        return vo;
     }
 
     @Override
@@ -61,6 +63,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         List<Product> pds = prodcuts.stream()
                 .map(it -> {
                     Product pd = new Product();
+                    // 生产环境不行
                     BeanUtils.copyProperties(it, pd);
                     pd.setProductId(BigInteger.valueOf(snowUtil.nextId()));
                     pd.setIsEnable(LogicConst.ENABLE);
@@ -73,6 +76,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         if (insert != prodcuts.size()) {
             throw new AppException(Status.ERROR);
         }
+
         return pds.stream().map(it -> {
             ProductVO vo = new ProductVO();
             BeanUtils.copyProperties(it, vo);
