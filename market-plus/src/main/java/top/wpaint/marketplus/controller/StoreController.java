@@ -1,5 +1,7 @@
 package top.wpaint.marketplus.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,5 +36,17 @@ public class StoreController {
     public Result<StoreVO> openNewStore(@RequestBody StoreDTO body) throws AppException {
         log.debug("add new store -- {}", body);
         return Result.success(storeService.doOpenNewStore(body));
+    }
+
+    /**
+     * 批量修改店铺信息
+     * @param body
+     * @return
+     * @throws AppException
+     */
+    @PostMapping("update")
+    public Result<List<StoreVO>> updateStoreBatch(@RequestBody List<StoreVO> body) throws AppException {
+        log.debug("批量修改店铺信息 -- {}", body);
+        return Result.success(storeService.doUpdateStoreBatch(body));
     }
 }

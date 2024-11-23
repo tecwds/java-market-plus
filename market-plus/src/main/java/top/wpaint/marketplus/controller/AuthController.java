@@ -25,6 +25,12 @@ public class AuthController {
         this.userAuthService = userAuthService;
     }
 
+    /**
+     * 获得验证码
+     * @param verifyCode
+     * @return
+     * @throws AppException
+     */
     @GetMapping("verifycode")
     public Result<VerifyCodeVO> getVerifyCode(@RequestParam(name = "email") VerifyCodeDTO verifyCode) throws AppException {
         log.debug("执行获得验证码");
@@ -32,6 +38,12 @@ public class AuthController {
         return Result.success(res);
     }
 
+    /**
+     * 注册
+     * @param body
+     * @return
+     * @throws AppException
+     */
     @PostMapping("register")
     public Result<String> authRegister(@RequestBody RegisterDTO body) throws AppException {
         if (!body.getPassword().equals(body.getRePassword())) {
@@ -42,6 +54,12 @@ public class AuthController {
         return Result.success(userAuthService.doRegister(body));
     }
 
+    /**
+     * 登陆
+     * @param body
+     * @return
+     * @throws AppException
+     */
     @PostMapping("login")
     public Result<LoginVO> authLogin(@RequestBody LoginDTO body) throws AppException {
 //        log.debug("执行登陆接口：{}", body);
@@ -54,6 +72,10 @@ public class AuthController {
         return Result.success(res);
     }
 
+    /**
+     * 登出
+     * @return
+     */
     @GetMapping("logout")
     public Result<String> authLogout() {
         if (!StpUtil.isLogin()) {

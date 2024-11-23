@@ -49,9 +49,9 @@ public class CategoryController {
     @PutMapping
     public Result<String> addCategory(@RequestBody List<CategoryDTO> body) throws AppException {
         log.debug("测试 - 添加 category -- {}", body);
-
         return Result.success(categoryService.doAddCategory(body));
     }
 
+    
     
 }
