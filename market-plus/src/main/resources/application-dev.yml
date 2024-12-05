@@ -31,3 +31,6 @@ sa-token:
   # jwt 密钥
   # 潘的大超市
   jwt-secret-key: iEepyFxYmqWktYF2KmNbDqj18uM
+
+market:
+  secret-key: just-do-it@tecwds

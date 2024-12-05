@@ -29,15 +29,10 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 表 ID,用于快速索引
+     * 表的 ID 主键
      */
     @Id
     private BigInteger id;
-
-    /**
-     * 分类 ID
-     */
-    private BigInteger categoryId;
 
     /**
      * 分类名称
@@ -55,18 +50,18 @@ public class Category implements Serializable {
     private LocalDateTime gmtCreated;
 
     /**
-     * 修改时间
+     * 更新日期
      */
     private LocalDateTime gmtModified;
 
     /**
-     * 是否删除（逻辑删除）
+     * 逻辑删除
      */
     private Integer isDeleted;
 
     /**
-     * 是否启用（激活）
+     * 是否启用
      */
-    private Integer isEnable;
+    private Integer isEnabled;
 
 }
