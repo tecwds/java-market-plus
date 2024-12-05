@@ -14,8 +14,8 @@ import top.wpaint.marketplus.service.UserService;
 
 @Slf4j
 @SaCheckLogin
-@RestController
-@RequestMapping("/api/user")
+//@RestController
+//@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -61,5 +61,5 @@ public class UserController {
         return Result.success(userService.doUpdateUserPasswd(StpUtil.getLoginIdAsString(), body));
     }
 
-    
+
 }
