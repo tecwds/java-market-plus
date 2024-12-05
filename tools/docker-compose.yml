@@ -1,0 +1,63 @@
+# 新版 docker-compose 不需要指定版本
+# version: '3.9'
+
+# 潘的程序员黑市
+
+services:
+  market-server:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    container_name: 'market-server'
+    restart: unless-stopped
+#    volumes:
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - '39150:39150'
+    networks:
+      - market-net
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '1G'
+    depends_on:
+      - market-mysql
+  market-mysql:
+    image: 'mysql:5.7'
+    container_name: 'market-mysql'
+    restart: unless-stopped
+    command:
+      # 设置字符集
+      - '--character-set-server=utf8mb4'
+      - '--collation-server=utf8mb4_unicode_ci'
+    volumes:
+      - 'market-mysql-d:/var/lib/mysql'
+      # 用于初始化数据库
+      - '../sql:/docker-entrypoint-initdb.d/'
+    environment:
+      - MYSQL_ROOT_PASSWORD=MySQL123@tecwds
+      - TZ=Asia/Shanghai
+    networks:
+      - market-net
+    ports:
+      - '6666:3306'
+    tty: true
+    stdin_open: true
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '1G'
+
+networks:
+  market-net:
+    name: 'market-net'
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.19.8.0/24
+          gateway: 10.19.8.1
+
+volumes:
+  market-mysql-d:
