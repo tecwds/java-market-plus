@@ -1,4 +1,4 @@
-package top.wpaint.marketplus.controller;
+package top.wpaint.marketplus.controller.auth;
 
 import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
