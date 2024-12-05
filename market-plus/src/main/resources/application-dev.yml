@@ -4,9 +4,9 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url:  jdbc:mysql://sh-cynosdbmysql-grp-09nvk3xa.sql.tencentcdb.com:22763/market_plus_db?characterEncoding=utf-8
-    username: wpanMarket
-    password: market123@wpan
+    url:  jdbc:mysql://market-mysql:3306/market_plus_db?characterEncoding=utf-8
+    username: root
+    password: MySQL123@tecwds
     driver-class-name: com.mysql.cj.jdbc.Driver
   mail:
     host: smtp.163.com
