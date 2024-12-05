@@ -1,5 +1,6 @@
 package top.wpaint.marketplus.service.impl;
 
+import com.jfinal.template.stat.ast.Stat;
 import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
@@ -9,6 +10,7 @@ import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.Category;
 import top.wpaint.marketplus.entity.dto.CategoryDTO;
 import top.wpaint.marketplus.entity.table.CategoryTableDef;
+import top.wpaint.marketplus.entity.vo.CategoryVO;
 import top.wpaint.marketplus.mapper.CategoryMapper;
 import top.wpaint.marketplus.service.CategoryService;
 import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
@@ -42,29 +44,75 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public List<Category> doListCategory() {
         return QueryChain.of(categoryMapper)
-        .select(CategoryTableDef.CATEGORY.DEFAULT_COLUMNS)
-        .from(CategoryTableDef.CATEGORY)
-        .list();
+                .select(CategoryTableDef.CATEGORY.DEFAULT_COLUMNS)
+                .from(CategoryTableDef.CATEGORY)
+                .list();
     }
 
     @Override
     public String doAddCategory(List<CategoryDTO> body) throws AppException {
         // 检查标签是否存在过
-        Map<String, Category> collect = doListCategory().stream()
-                .collect(Collectors.toMap(Category::getName, Function.identity()));
-        ;
-        List<Category> batch = new ArrayList<>();
+//        Map<String, Category> collect = doListCategory().stream()
+//                .collect(Collectors.toMap(Category::getName, Function.identity()));
+//        ;
+//        List<Category> batch = new ArrayList<>();
+//
+//        body.stream().filter(item -> !collect.containsKey(item.getName())).forEach(item -> {
+//            batch.add(Category.builder()
+//                    .categoryId(BigInteger.valueOf(snowUtils.nextId()))
+//                    .name(item.getName())
+//                    .description(item.getDescription())
+//                    .isEnable(LogicConst.ENABLE)
+//                    .build());
+//        });
+//
+//        categoryMapper.insertBatch(batch);
+        return Status.SUCCESS.getMessage();
+    }
 
-        body.stream().filter(item -> !collect.containsKey(item.getName())).forEach(item -> {
-            batch.add(Category.builder()
-                    .categoryId(BigInteger.valueOf(snowUtils.nextId()))
-                    .name(item.getName())
-                    .description(item.getDescription())
-                    .isEnable(LogicConst.ENABLE)
-                    .build());
-        });
+    @Override
+    public List<CategoryVO> doGetCategoryList() {
+        List<Category> categories = categoryMapper.selectAll();
 
-        categoryMapper.insertBatch(batch);
+        List<CategoryVO> voList = new ArrayList<>(categories.size());
+
+        categories.forEach(it -> voList.add(new CategoryVO(
+                it.getId(),
+                it.getName(),
+                it.getDescription())));
+
+        return voList;
+    }
+
+    @Override
+    public String doAddCategoryBatch(List<CategoryDTO> categories) {
+        List<Category> categoryList = new ArrayList<>(categories.size());
+
+        categories.forEach(it -> categoryList.add(new Category(
+                null,
+                it.getName(),
+                it.getDescription(),
+                null,
+                null,
+                null,
+                LogicConst.ENABLE)));
+
+        categoryMapper.insertBatch(categoryList);
+        return Status.SUCCESS.getMessage();
+    }
+
+    @Override
+    public String doUpdateCategoryBatch(List<CategoryDTO> categories) {
+        List<Category> categoryList = new ArrayList<>(categories.size());
+
+        categories.forEach(it -> categoryList.add(Category.builder()
+                .id(new BigInteger(it.getId()))
+                .name(it.getName())
+                .description(it.getDescription())
+                .build()
+        ));
+
+        this.updateBatch(categoryList);
         return Status.SUCCESS.getMessage();
     }
 

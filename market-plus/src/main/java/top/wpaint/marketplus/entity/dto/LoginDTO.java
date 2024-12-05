@@ -1,11 +1,15 @@
 package top.wpaint.marketplus.entity.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -13,17 +17,15 @@ public class LoginDTO implements Serializable {
     /**
      * 登陆账号
      */
-    private String accessKey;
+    private String email;
+
+    /**
+     * 用户名，也可以登陆，邮箱优先
+     */
+    private String username;
 
     /**
      * 登陆密码
      */
-    private String secretKey;
-
-    /**
-     * 登陆类型
-     * 具体参考 {@link top.wpaint.marketplus.common.constant.AuthConst}
-     */
-    private Integer type;
-
+    private String password;
 }
