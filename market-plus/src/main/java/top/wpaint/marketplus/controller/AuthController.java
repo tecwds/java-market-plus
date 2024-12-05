@@ -1,6 +1,7 @@
 package top.wpaint.marketplus.controller;
 
 import cn.dev33.satoken.stp.StpUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.exception.AppException;
@@ -19,16 +20,13 @@ import top.wpaint.marketplus.service.UserAuthService;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final UserAuthService userAuthService;
-
-    public AuthController(UserAuthService userAuthService) {
-        this.userAuthService = userAuthService;
-    }
+    @Resource
+    private UserAuthService userAuthService;
 
     /**
      * 获得验证码
-     * @param verifyCode
-     * @return
+     * @param verifyCode 验证码
+     * @return Result
      * @throws AppException
      */
     @GetMapping("verifycode")

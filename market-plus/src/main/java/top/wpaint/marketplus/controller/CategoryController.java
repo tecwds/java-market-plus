@@ -53,5 +53,9 @@ public class CategoryController {
     }
 
     
+    public Result<String> delCategoryBatch() {
+        return null;
+    }
+    
     
 }

@@ -27,7 +27,7 @@ public class UserController {
     /**
      * 查 - 用户信息
      */
-    @GetMapping("info")
+    @GetMapping("me")
     public Result<UserInfoVO> getUserInfo() throws AppException {
         log.debug("用户 ID 测试 - {}", StpUtil.getLoginIdAsString());
         return Result.success(userService.doGetUserInfo(StpUtil.getLoginIdAsString()));

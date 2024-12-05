@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-11-19
+ * @since 2024-12-05
  */
 public class AuthTableDef extends TableDef {
 
@@ -74,7 +74,7 @@ public class AuthTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, AUTH_NAME, AUTH_TYPE, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, AUTH_ID, AUTH_NAME, AUTH_TYPE, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_DELETED, IS_ENABLE};
 
     public AuthTableDef() {
         super("", "wb_auth");

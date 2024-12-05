@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-11-19
+ * @since 2024-12-05
  */
 public class RoleTableDef extends TableDef {
 
@@ -22,29 +22,29 @@ public class RoleTableDef extends TableDef {
     public static final RoleTableDef ROLE = new RoleTableDef();
 
     /**
-     * 表 ID，用于快速索引
+     * 表的 ID 主键
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 角色 ID
+     * 角色名称（英文）
      */
-    public final QueryColumn ROLE_ID = new QueryColumn(this, "role_id");
+    public final QueryColumn NAME = new QueryColumn(this, "name");
 
     /**
-     * 是否启用（激活）
+     * 角色类型
      */
-    public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
+    public final QueryColumn TYPE = new QueryColumn(this, "type");
 
     /**
-     * 角色名称
-     */
-    public final QueryColumn ROLE_NAME = new QueryColumn(this, "role_name");
-
-    /**
-     * 是否删除（逻辑删除）
+     * 逻辑删除
      */
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
+
+    /**
+     * 是否启用
+     */
+    public final QueryColumn IS_ENABLED = new QueryColumn(this, "is_enabled");
 
     /**
      * 创建时间
@@ -52,12 +52,12 @@ public class RoleTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
-     * 角色描述
+     * 描述
      */
     public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
 
     /**
-     * 修改时间
+     * 更新日期
      */
     public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
 
@@ -69,7 +69,7 @@ public class RoleTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, ROLE_ID, ROLE_NAME, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, NAME, TYPE, DESCRIPTION, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
     public RoleTableDef() {
         super("", "wb_role");

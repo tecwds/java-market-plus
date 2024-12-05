@@ -8,7 +8,7 @@ import top.wpaint.marketplus.entity.Tag;
  *  映射层。
  *
  * @author tecwds
- * @since 2024-11-19
+ * @since 2024-12-05
  */
 @Mapper
 public interface TagMapper extends BaseMapper<Tag> {

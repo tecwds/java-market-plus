@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-11-19
+ * @since 2024-12-05
  */
 public class UserTableDef extends TableDef {
 
@@ -22,17 +22,17 @@ public class UserTableDef extends TableDef {
     public static final UserTableDef USER = new UserTableDef();
 
     /**
-     * 表 ID，用于快速索引
+     * 表的 ID 主键
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 用户名（唯一）
+     * 邮箱
      */
     public final QueryColumn EMAIL = new QueryColumn(this, "email");
 
     /**
-     * 用户头像
+     * 头像地址
      */
     public final QueryColumn AVATAR = new QueryColumn(this, "avatar");
 
@@ -42,37 +42,37 @@ public class UserTableDef extends TableDef {
     public final QueryColumn GENDER = new QueryColumn(this, "gender");
 
     /**
-     * 用户ID
+     * 昵称
      */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
+    public final QueryColumn NICKNAME = new QueryColumn(this, "nickname");
 
     /**
-     * （默认）登陆类型
+     * 密码
      */
-    public final QueryColumn AUTH_TYPE = new QueryColumn(this, "auth_type");
+    public final QueryColumn PASSWORD = new QueryColumn(this, "password");
 
     /**
-     * 是否启用（激活）
-     */
-    public final QueryColumn IS_ENABLE = new QueryColumn(this, "is_enable");
-
-    /**
-     * 权限类型
+     * 角色名称
      */
     public final QueryColumn ROLE_NAME = new QueryColumn(this, "role_name");
 
     /**
-     * 用户昵称（随意）
+     * 用户名
      */
     public final QueryColumn USERNAME = new QueryColumn(this, "username");
 
     /**
-     * 是否删除（逻辑删除）
+     * 逻辑删除
      */
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
 
     /**
-     * 用户签名
+     * 是否启用
+     */
+    public final QueryColumn IS_ENABLED = new QueryColumn(this, "is_enabled");
+
+    /**
+     * 签名
      */
     public final QueryColumn SIGNATURE = new QueryColumn(this, "signature");
 
@@ -82,7 +82,7 @@ public class UserTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
-     * 修改时间
+     * 更新日期
      */
     public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
 
@@ -94,7 +94,7 @@ public class UserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, AVATAR, EMAIL, USERNAME, SIGNATURE, GENDER, AUTH_TYPE, ROLE_NAME, GMT_CREATED, GMT_MODIFIED, IS_ENABLE};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, EMAIL, PASSWORD, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, ROLE_NAME, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
     public UserTableDef() {
         super("", "wb_user");

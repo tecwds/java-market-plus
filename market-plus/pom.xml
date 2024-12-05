@@ -109,6 +109,8 @@
     </dependencies>
 
     <build>
+        <!-- 制品名称 -->
+        <finalName>market-plus</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

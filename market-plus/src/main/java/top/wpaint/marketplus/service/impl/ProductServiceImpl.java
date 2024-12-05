@@ -1,14 +1,21 @@
 package top.wpaint.marketplus.service.impl;
 
+import com.mybatisflex.core.activerecord.query.WhereBuilder;
+import com.mybatisflex.core.query.QueryCondition;
+import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 
 import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.Product;
+import top.wpaint.marketplus.entity.dto.DeleteProductDTO;
 import top.wpaint.marketplus.entity.dto.ProductDTO;
+import top.wpaint.marketplus.entity.table.ProductCategoryTableDef;
 import top.wpaint.marketplus.entity.vo.ProductVO;
+import top.wpaint.marketplus.mapper.ProductCategoryMapper;
 import top.wpaint.marketplus.mapper.ProductMapper;
+import top.wpaint.marketplus.mapper.ProductTagMapper;
 import top.wpaint.marketplus.service.ProductService;
 import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
 
@@ -31,11 +38,16 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
     private final SnowflakeDistributeIdUtil snowUtil;
     private final ProductMapper productMapper;
-
+    private final ProductCategoryMapper productCategoryMapper;
+    private final ProductTagMapper productTagMapper;
     public ProductServiceImpl(SnowflakeDistributeIdUtil snowUtil,
-            ProductMapper productMapper) {
+            ProductMapper productMapper,
+            ProductCategoryMapper productCategoryMapper,
+            ProductTagMapper productTagMapper) {
         this.productMapper = productMapper;
         this.snowUtil = snowUtil;
+        this.productCategoryMapper = productCategoryMapper;
+        this.productTagMapper = productTagMapper;
     }
 
     @Override
@@ -82,5 +94,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             BeanUtils.copyProperties(it, vo);
             return vo;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void doDeleteBatchProduct(DeleteProductDTO body) throws AppException {
+        // 删除商品对应的标签，分类关联表数据
+        
     }
 }
