@@ -1,11 +1,12 @@
 package top.wpaint.marketplus.handler;
 
+import cn.dev33.satoken.exception.SaTokenException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ch.qos.logback.core.status.Status;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.common.Result;
 
@@ -21,6 +22,13 @@ public class GlobalExceptionHandler {
     public Result<String> appExceptionHandler(AppException e) {
         log.error(e.getMessage());
         return Result.error(e.getCode(), e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(SaTokenException.class)
+    public Result<String> handlerSaTokenException(SaTokenException e) {
+        log.error("Sa-token 错误 -- {} -- {}", e.getCode(), e.getMessage());
+        return Result.error(Status.ERROR.getCode(), e.getMessage());
     }
 
     @ResponseBody
