@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-12-05
+ * @since 2024-12-06
  */
 public class UserTableDef extends TableDef {
 
