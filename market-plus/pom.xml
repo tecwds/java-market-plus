@@ -108,6 +108,14 @@
 
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>aliyun-maven</id>
+            <name>阿里云镜像仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+        </repository>
+    </repositories>
+
     <build>
         <!-- 制品名称 -->
         <finalName>market-plus</finalName>
