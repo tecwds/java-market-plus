@@ -1,5 +1,6 @@
 package top.wpaint.marketplus.controller;
 
+import cn.dev33.satoken.annotation.SaIgnore;
 import cn.hutool.json.JSON;
 import cn.hutool.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/healthy")
 public class HealthController {
 
+    @SaIgnore
     @GetMapping
     public String checkHealthy() {
-        JSONObject entries = new JSONObject();
-        entries.set("status", "UP");
-        return entries.toString();
+        log.info("执行健康检查");
+        return new JSONObject().set("status", "UP").toString();
     }
 }
