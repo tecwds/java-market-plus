@@ -11,7 +11,7 @@ import top.wpaint.marketplus.service.UserService;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth/register")
+@RequestMapping("/api/auth")
 public class RegistryController {
 
     @Resource
@@ -30,7 +30,7 @@ public class RegistryController {
         return Result.success();
     }
 
-    @PostMapping
+    @PostMapping("register")
     public Result<String> register(@RequestBody RegisterDTO register) throws AppException {
         log.info("用户注册 -- {}", register);
 

@@ -69,7 +69,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void doRegister(RegisterDTO register) throws AppException {
         User u = userMapper.selectOneByQuery(QueryWrapper.create().where(UserTableDef.USER.EMAIL.eq(register.getEmail())));
 
-        if (null == u) {
+        if (null != u) {
             log.warn("用户已经存在 -- {}", register.getEmail());
             throw new AppException(Status.USER_EXISTS);
         }
@@ -117,13 +117,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         // 判断密码
-        if (!SaSecureUtil.aesDecrypt(secretKey, u.getPassword()).equals(u.getPassword())) {
+        if (!SaSecureUtil.aesDecrypt(secretKey, u.getPassword()).equals(login.getPassword())) {
             // 失败
             throw new AppException(Status.USERNAME_OR_PASSWD_ERR);
         }
 
         // 登陆
         StpUtil.login(login.getEmail());
+
+
 
         return new LoginVO(StpUtil.getTokenValue());
     }
@@ -181,6 +183,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         u.setPassword(SaSecureUtil.aesEncrypt(secretKey, resetPasswd.getNewPassword()));
         userMapper.update(u);
 
+        SaSessionCustomUtil.deleteSessionById("verCode-" + StpUtil.getLoginIdAsString());
         return Status.SUCCESS.getMessage();
     }
 }

@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url:  jdbc:mysql://market-mysql:3306/market_plus_db?characterEncoding=utf-8
+    url:  jdbc:mysql://localhost:6666/market_plus_db?characterEncoding=utf-8
     username: root
     password: MySQL123@tecwds
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -16,6 +16,6 @@ public class HealthController {
     @GetMapping
     public String checkHealthy() {
         log.info("执行健康检查");
-        return new JSONObject().set("status", "UP").toString();
+        return "UP";
     }
 }
