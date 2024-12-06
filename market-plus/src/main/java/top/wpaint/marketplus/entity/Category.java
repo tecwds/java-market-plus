@@ -16,7 +16,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-05
+ * @since 2024-12-06
  */
 @Data
 @Builder

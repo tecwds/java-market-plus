@@ -17,8 +17,4 @@ import top.wpaint.marketplus.entity.vo.StoreVO;
  */
 public interface StoreService extends IService<Store> {
 
-    StoreVO doOpenNewStore(StoreDTO body) throws AppException;
-
-    List<StoreVO> doUpdateStoreBatch(List<StoreVO> body) throws AppException;
-
 }

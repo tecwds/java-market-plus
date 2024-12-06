@@ -4,8 +4,6 @@ import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.session.SaSessionCustomUtil;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.bean.BeanUtil;
-import com.mybatisflex.core.query.QueryChain;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
@@ -14,28 +12,21 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import top.wpaint.marketplus.common.Status;
-import top.wpaint.marketplus.common.constant.AuthConst;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.constant.RoleConst;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.User;
-import top.wpaint.marketplus.entity.UserAuth;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.dto.RegisterDTO;
 import top.wpaint.marketplus.entity.dto.UserInfoDTO;
-import top.wpaint.marketplus.entity.dto.UserPasswdDTO;
-import top.wpaint.marketplus.entity.table.UserAuthTableDef;
 import top.wpaint.marketplus.entity.table.UserTableDef;
 import top.wpaint.marketplus.entity.vo.LoginVO;
 import top.wpaint.marketplus.entity.vo.UserInfoVO;
-import top.wpaint.marketplus.mapper.UserAuthMapper;
 import top.wpaint.marketplus.mapper.UserMapper;
 import top.wpaint.marketplus.service.UserService;
 import org.springframework.stereotype.Service;
-import top.wpaint.marketplus.service.support.UserServiceSupport;
 import top.wpaint.marketplus.util.VerCodeUtil;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -53,9 +44,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private UserMapper userMapper;
-
-    @Resource
-    private UserAuthMapper userAuthMapper;
 
     @Resource
     private VerCodeUtil verCodeUtil;

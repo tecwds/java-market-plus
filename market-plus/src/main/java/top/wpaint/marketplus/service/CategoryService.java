@@ -17,10 +17,6 @@ import top.wpaint.marketplus.entity.vo.CategoryVO;
  */
 public interface CategoryService extends IService<Category> {
 
-    List<Category> doListCategory();
-
-    String doAddCategory(List<CategoryDTO> body) throws AppException;
-
     List<CategoryVO> doGetCategoryList();
 
     String doAddCategoryBatch(List<CategoryDTO> categories);
