@@ -1,12 +1,10 @@
 package top.wpaint.marketplus.controller.auth;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
@@ -15,13 +13,13 @@ import top.wpaint.marketplus.service.UserService;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth/login")
+@RequestMapping("/api/auth")
 public class LoginController {
 
     @Resource
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("login")
     public Result<LoginVO> login(@RequestBody LoginDTO login) throws AppException {
         log.info("用户登陆 -- {}", login.getEmail());
 
@@ -32,6 +30,13 @@ public class LoginController {
         }
 
         return Result.success(userService.doLogin(login));
+    }
+
+    @SaCheckLogin
+    @GetMapping("logout")
+    public Result<String> logout() {
+        StpUtil.logout();
+        return Result.success();
     }
 
 }
