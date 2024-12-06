@@ -18,6 +18,7 @@ import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.User;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.dto.RegisterDTO;
+import top.wpaint.marketplus.entity.dto.ResetPasswdDTO;
 import top.wpaint.marketplus.entity.dto.UserInfoDTO;
 import top.wpaint.marketplus.entity.table.UserTableDef;
 import top.wpaint.marketplus.entity.vo.LoginVO;
@@ -157,5 +158,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserInfoVO vo = new UserInfoVO();
         BeanUtils.copyProperties(u, vo);
         return vo;
+    }
+
+    @Override
+    public String doResetPassword(ResetPasswdDTO resetPasswd) throws AppException {
+        User u = userMapper.selectOneByQuery(QueryWrapper.create().where(UserTableDef.USER.EMAIL.eq(StpUtil.getLoginIdAsString())));
+
+        if (u == null) {
+            // 真的是未知错误啊
+            throw new AppException(Status.ERROR);
+        }
+
+        SaSession session = SaSessionCustomUtil.getSessionById("verCode-" + StpUtil.getLoginIdAsString());
+
+        Integer verCode = session.getInt(StpUtil.getLoginIdAsString());
+
+        if (!resetPasswd.getVerCode().equals(verCode)) {
+            log.warn("验证码匹配错误 -- 输入： {}  应是： {}", resetPasswd.getVerCode(), verCode);
+            throw new AppException(Status.VERIFY_CODE_NOT_EQ);
+        }
+
+        u.setPassword(SaSecureUtil.aesEncrypt(secretKey, resetPasswd.getNewPassword()));
+        userMapper.update(u);
+
+        return Status.SUCCESS.getMessage();
     }
 }
