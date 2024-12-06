@@ -1,17 +1,7 @@
 package top.wpaint.marketplus;
 
-import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import top.wpaint.marketplus.common.constant.AuthConst;
-import top.wpaint.marketplus.common.constant.GenderConst;
-import top.wpaint.marketplus.common.constant.LogicConst;
-import top.wpaint.marketplus.common.constant.RoleConst;
-import top.wpaint.marketplus.entity.*;
-import top.wpaint.marketplus.service.*;
-import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
-
-import java.math.BigInteger;
 
 @SpringBootTest
 class MarketPlusApplicationTests {

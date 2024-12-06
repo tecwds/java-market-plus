@@ -48,8 +48,4 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> error(String message) {
         return error(Status.ERROR.getCode(), message);
     }
-
-    public static <T> Result<T> error() {
-        return error(Status.ERROR.getCode(), Status.ERROR.getMessage());
-    }
 }
