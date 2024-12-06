@@ -28,8 +28,16 @@ services:
       driver: 'json-file'
       options:
         max-size: '1G'
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:39150/api/healthy" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     depends_on:
-      - market-mysql
+      market-mysql:
+        condition: service_healthy
+
   market-mysql:
     image: 'mysql:5.7'
     container_name: 'market-mysql'
@@ -55,6 +63,12 @@ services:
       driver: 'json-file'
       options:
         max-size: '1G'
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
 networks:
   market-net:
