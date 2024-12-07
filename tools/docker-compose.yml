@@ -21,6 +21,9 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
+      # 需要开放邮箱端口
+      - "25:25"
+      - "465:465"
       - '39150:39150'
     networks:
       market-net:
@@ -30,7 +33,7 @@ services:
         max-size: '1G'
     healthcheck:
       test: "curl --fail --silent localhost:39150/api/healthy | grep UP || exit 1"
-      interval: 15s
+#      interval: 15s
       timeout: 5s
       retries: 5
       start_period: 10s

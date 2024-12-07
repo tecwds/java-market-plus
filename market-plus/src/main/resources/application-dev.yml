@@ -12,7 +12,18 @@ spring:
     host: smtp.163.com
     username: tecwds@163.com
     password: TEtCAZatg6P7bdGC
-    
+    port: 465
+    properties:
+      mail:
+        smtp:
+          auth: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
+          starttls:
+            enable: true
+            required: true
 sa-token:
   # token 名称（同时也是 cookie 名称）
   token-name: sa-market
