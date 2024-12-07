@@ -42,7 +42,7 @@ public class UserController extends BaseController {
         return Result.success(userService.doResetPassword(resetPasswd));
     }
 
-    @PutMapping
+    @PutMapping("openStore")
     public Result<String> openStore(@RequestBody OpenStoreDTO store) throws AppException {
         log.info("开新店了 -- {}，信息：{}", StpUtil.getLoginIdAsString(), store);
 
