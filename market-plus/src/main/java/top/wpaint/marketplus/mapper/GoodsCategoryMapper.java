@@ -2,7 +2,7 @@ package top.wpaint.marketplus.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
-import top.wpaint.marketplus.entity.Store;
+import top.wpaint.marketplus.entity.GoodsCategory;
 
 /**
  *  映射层。
@@ -11,6 +11,6 @@ import top.wpaint.marketplus.entity.Store;
  * @since 2024-12-07
  */
 @Mapper
-public interface StoreMapper extends BaseMapper<Store> {
+public interface GoodsCategoryMapper extends BaseMapper<GoodsCategory> {
 
 }

@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-12-07
  */
-public class OrderTableDef extends TableDef {
+public class InventoryTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class OrderTableDef extends TableDef {
     /**
      * 
      */
-    public static final OrderTableDef ORDER = new OrderTableDef();
+    public static final InventoryTableDef INVENTORY = new InventoryTableDef();
 
     /**
      * 表的 ID 主键
@@ -27,29 +27,24 @@ public class OrderTableDef extends TableDef {
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 数量
+     * 库存数量
      */
     public final QueryColumn COUNT = new QueryColumn(this, "count");
 
     /**
-     * 单价
+     * 价格（冗余，加快访问）
      */
     public final QueryColumn PRICE = new QueryColumn(this, "price");
 
     /**
-     * 总价
-     */
-    public final QueryColumn TOTAL = new QueryColumn(this, "total");
-
-    /**
-     * 关联用户 ID
-     */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
-
-    /**
-     * 关联商品ID
+     * 关联商品 ID
      */
     public final QueryColumn GOODS_ID = new QueryColumn(this, "goods_id");
+
+    /**
+     * 关联商店ID
+     */
+    public final QueryColumn STORE_ID = new QueryColumn(this, "store_id");
 
     /**
      * 逻辑删除
@@ -79,19 +74,19 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, STORE_ID, GOODS_ID, PRICE, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
-    public OrderTableDef() {
-        super("", "wb_order");
+    public InventoryTableDef() {
+        super("", "wb_inventory");
     }
 
-    private OrderTableDef(String schema, String name, String alisa) {
+    private InventoryTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public OrderTableDef as(String alias) {
+    public InventoryTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new OrderTableDef("", "wb_order", alias));
+        return getCache(key, k -> new InventoryTableDef("", "wb_inventory", alias));
     }
 
 }

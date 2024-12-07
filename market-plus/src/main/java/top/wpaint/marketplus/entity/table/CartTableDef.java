@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-12-07
  */
-public class OrderTableDef extends TableDef {
+public class CartTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class OrderTableDef extends TableDef {
     /**
      * 
      */
-    public static final OrderTableDef ORDER = new OrderTableDef();
+    public static final CartTableDef CART = new CartTableDef();
 
     /**
      * 表的 ID 主键
@@ -32,22 +32,12 @@ public class OrderTableDef extends TableDef {
     public final QueryColumn COUNT = new QueryColumn(this, "count");
 
     /**
-     * 单价
-     */
-    public final QueryColumn PRICE = new QueryColumn(this, "price");
-
-    /**
-     * 总价
-     */
-    public final QueryColumn TOTAL = new QueryColumn(this, "total");
-
-    /**
-     * 关联用户 ID
+     * 关联用户ID
      */
     public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
 
     /**
-     * 关联商品ID
+     * 商品 ID
      */
     public final QueryColumn GOODS_ID = new QueryColumn(this, "goods_id");
 
@@ -79,19 +69,19 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
-    public OrderTableDef() {
-        super("", "wb_order");
+    public CartTableDef() {
+        super("", "wb_cart");
     }
 
-    private OrderTableDef(String schema, String name, String alisa) {
+    private CartTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public OrderTableDef as(String alias) {
+    public CartTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new OrderTableDef("", "wb_order", alias));
+        return getCache(key, k -> new CartTableDef("", "wb_cart", alias));
     }
 
 }

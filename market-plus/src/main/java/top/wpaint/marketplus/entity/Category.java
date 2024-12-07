@@ -1,6 +1,8 @@
 package top.wpaint.marketplus.entity;
 
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -16,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-06
+ * @since 2024-12-07
  */
 @Data
 @Builder
@@ -31,7 +33,7 @@ public class Category implements Serializable {
     /**
      * 表的 ID 主键
      */
-    @Id
+    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
 
     /**
@@ -47,16 +49,19 @@ public class Category implements Serializable {
     /**
      * 创建时间
      */
+    @Column(onInsertValue = "now()")
     private LocalDateTime gmtCreated;
 
     /**
      * 更新日期
      */
+    @Column(onInsertValue = "now()", onUpdateValue = "now()")
     private LocalDateTime gmtModified;
 
     /**
      * 逻辑删除
      */
+    @Column(onInsertValue = "0", isLogicDelete = true)
     private Integer isDeleted;
 
     /**

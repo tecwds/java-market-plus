@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-12-07
  */
-public class OrderTableDef extends TableDef {
+public class GoodsCategoryTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,36 +19,14 @@ public class OrderTableDef extends TableDef {
     /**
      * 
      */
-    public static final OrderTableDef ORDER = new OrderTableDef();
+    public static final GoodsCategoryTableDef GOODS_CATEGORY = new GoodsCategoryTableDef();
 
     /**
      * 表的 ID 主键
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
-    /**
-     * 数量
-     */
-    public final QueryColumn COUNT = new QueryColumn(this, "count");
-
-    /**
-     * 单价
-     */
-    public final QueryColumn PRICE = new QueryColumn(this, "price");
-
-    /**
-     * 总价
-     */
-    public final QueryColumn TOTAL = new QueryColumn(this, "total");
-
-    /**
-     * 关联用户 ID
-     */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
-
-    /**
-     * 关联商品ID
-     */
+    
     public final QueryColumn GOODS_ID = new QueryColumn(this, "goods_id");
 
     /**
@@ -60,6 +38,9 @@ public class OrderTableDef extends TableDef {
      * 是否启用
      */
     public final QueryColumn IS_ENABLED = new QueryColumn(this, "is_enabled");
+
+    
+    public final QueryColumn CATEGORY_ID = new QueryColumn(this, "category_id");
 
     /**
      * 创建时间
@@ -79,19 +60,19 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, GOODS_ID, CATEGORY_ID, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
-    public OrderTableDef() {
-        super("", "wb_order");
+    public GoodsCategoryTableDef() {
+        super("", "wb_goods_category");
     }
 
-    private OrderTableDef(String schema, String name, String alisa) {
+    private GoodsCategoryTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public OrderTableDef as(String alias) {
+    public GoodsCategoryTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new OrderTableDef("", "wb_order", alias));
+        return getCache(key, k -> new GoodsCategoryTableDef("", "wb_goods_category", alias));
     }
 
 }
