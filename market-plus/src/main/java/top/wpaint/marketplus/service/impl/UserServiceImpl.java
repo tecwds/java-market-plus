@@ -130,10 +130,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .or(UserTableDef.USER.USERNAME.eq(account)));
 
         // 登陆
-        StpUtil.login(u.getEmail());
-
-        // 将 userId 保存到 ThreadLocal
-        UserInfoStorage.addUserId(u.getId().toString());
+        StpUtil.login(u.getEmail(), new SaLoginModel()
+                .setExtra("userId", u.getId()));
 
         return new LoginVO(StpUtil.getTokenValue());
     }

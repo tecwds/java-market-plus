@@ -1,5 +1,6 @@
 package top.wpaint.marketplus.service.support;
 
+import cn.dev33.satoken.stp.StpUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class UserServiceSupport {
     private UserMapper userMapper;
 
     public User getUserFromStorage() throws AppException {
-        User u = userMapper.selectOneById(UserInfoStorage.getUserId());
+        User u = userMapper.selectOneById(StpUtil.getExtra("userId").toString());
 
         if (null == u) {
             // 这里可能没有登陆，直接返回未登录
