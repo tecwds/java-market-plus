@@ -2,22 +2,18 @@ package top.wpaint.marketplus.controller.auth;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.common.exception.AppException;
+import top.wpaint.marketplus.controller.BaseController;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.vo.LoginVO;
-import top.wpaint.marketplus.service.UserService;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
-public class LoginController {
-
-    @Resource
-    private UserService userService;
+public class LoginController extends BaseController {
 
     @PostMapping("login")
     public Result<LoginVO> login(@RequestBody LoginDTO login) throws AppException {
