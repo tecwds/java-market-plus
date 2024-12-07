@@ -1,21 +1,17 @@
 package top.wpaint.marketplus.controller.auth;
 
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.exception.AppException;
+import top.wpaint.marketplus.controller.BaseController;
 import top.wpaint.marketplus.entity.dto.RegisterDTO;
-import top.wpaint.marketplus.service.UserService;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
-public class RegistryController {
-
-    @Resource
-    private UserService userService;
+public class RegistryController extends BaseController {
 
     /**
      * 获得邮箱验证码

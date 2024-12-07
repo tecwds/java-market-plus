@@ -2,14 +2,12 @@ package top.wpaint.marketplus.controller.category;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
-import top.wpaint.marketplus.common.exception.AppException;
+import top.wpaint.marketplus.controller.BaseController;
 import top.wpaint.marketplus.entity.dto.TagDTO;
 import top.wpaint.marketplus.entity.vo.TagVO;
-import top.wpaint.marketplus.service.TagService;
 
 import java.util.List;
 
@@ -17,10 +15,7 @@ import java.util.List;
 @SaCheckLogin
 @RestController
 @RequestMapping("/api/tag")
-public class TagController {
-
-    @Resource
-    private TagService tagService;
+public class TagController extends BaseController {
 
     @SaIgnore
     @GetMapping("list")

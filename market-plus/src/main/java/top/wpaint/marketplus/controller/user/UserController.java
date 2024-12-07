@@ -2,29 +2,24 @@ package top.wpaint.marketplus.controller.user;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
-import com.mybatisflex.core.query.QueryWrapper;
-import jakarta.annotation.Resource;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
 import top.wpaint.marketplus.common.Status;
+import top.wpaint.marketplus.common.constant.RoleConst;
 import top.wpaint.marketplus.common.exception.AppException;
+import top.wpaint.marketplus.controller.BaseController;
 import top.wpaint.marketplus.entity.User;
+import top.wpaint.marketplus.entity.dto.OpenStoreDTO;
 import top.wpaint.marketplus.entity.dto.ResetPasswdDTO;
 import top.wpaint.marketplus.entity.dto.UserInfoDTO;
-import top.wpaint.marketplus.entity.table.UserTableDef;
 import top.wpaint.marketplus.entity.vo.UserInfoVO;
-import top.wpaint.marketplus.service.UserService;
 
 @Slf4j
 @SaCheckLogin
 @RestController
 @RequestMapping("/api/user")
-public class UserController {
-
-    @Resource
-    private UserService userService;
+public class UserController extends BaseController {
 
     @GetMapping("me")
     public Result<UserInfoVO> getInfo() throws AppException {
@@ -45,5 +40,17 @@ public class UserController {
             throw new AppException(Status.TWICE_PASSWD_NOT_EQ);
         }
         return Result.success(userService.doResetPassword(resetPasswd));
+    }
+
+    @PutMapping
+    public Result<String> openStore(@RequestBody OpenStoreDTO store) throws AppException {
+        log.info("开新店了 -- {}，信息：{}", StpUtil.getLoginIdAsString(), store);
+
+        // 更新个人信息（变成店长啦）
+        User u = userServiceSupport.getUserFromStorage();
+        u.setRoleName(RoleConst.SELLER.getRoleName());
+        userService.updateById(u);
+
+        return Result.success(storeService.doOpenStore(u.getId(), store));
     }
 }

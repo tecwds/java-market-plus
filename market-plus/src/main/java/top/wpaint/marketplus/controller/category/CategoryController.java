@@ -2,13 +2,12 @@ package top.wpaint.marketplus.controller.category;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
-import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
+import top.wpaint.marketplus.controller.BaseController;
 import top.wpaint.marketplus.entity.dto.CategoryDTO;
 import top.wpaint.marketplus.entity.vo.CategoryVO;
-import top.wpaint.marketplus.service.CategoryService;
 
 import java.util.List;
 
@@ -16,10 +15,7 @@ import java.util.List;
 @SaCheckLogin
 @RestController
 @RequestMapping("/api/category")
-public class CategoryController {
-
-    @Resource
-    private CategoryService categoryService;
+public class CategoryController extends BaseController {
 
     @SaIgnore
     @GetMapping("list")
