@@ -3,6 +3,7 @@ package top.wpaint.marketplus.service.impl;
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.session.SaSessionCustomUtil;
+import cn.dev33.satoken.stp.SaLoginModel;
 import cn.dev33.satoken.stp.StpUtil;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
@@ -12,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.transaction.annotation.Transactional;
 import top.wpaint.marketplus.common.Status;
+import top.wpaint.marketplus.common.UserInfoStorage;
 import top.wpaint.marketplus.common.constant.LogicConst;
 import top.wpaint.marketplus.common.constant.RoleConst;
 import top.wpaint.marketplus.common.exception.AppException;
@@ -122,10 +124,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new AppException(Status.USERNAME_OR_PASSWD_ERR);
         }
 
+        // 重新查询用户信息
+        u = userMapper.selectOneByQuery(QueryWrapper.create()
+                .where(UserTableDef.USER.EMAIL.eq(account))
+                .or(UserTableDef.USER.USERNAME.eq(account)));
+
         // 登陆
-        StpUtil.login(login.getEmail());
+        StpUtil.login(u.getEmail());
 
-
+        // 将 userId 保存到 ThreadLocal
+        UserInfoStorage.addUserId(u.getId().toString());
 
         return new LoginVO(StpUtil.getTokenValue());
     }
