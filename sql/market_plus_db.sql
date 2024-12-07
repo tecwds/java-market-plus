@@ -20,6 +20,7 @@ use market_plus_db;
 #     comment '通用数据库模板' charset = utf8;
 
 
+
 drop table if exists wb_category;
 create table if not exists wb_category
 (
@@ -67,25 +68,7 @@ create table if not exists wb_goods_category
         foreign key (category_id) references wb_category (id),
     constraint wb_goods_category_wb_goods_id_fk
         foreign key (goods_id) references wb_goods (id)
-) comment '通用数据库模板' charset = utf8;
-
-
-
-drop table if exists wb_order;
-create table if not exists wb_order
-(
-    id           bigint unsigned  not null comment '表的 ID 主键'
-        primary key,
-    user_id      bigint unsigned  not null comment '关联用户 ID',
-    goods_id     bigint unsigned  not null comment '关联商品ID',
-    price        bigint unsigned  not null comment '单价',
-    total        bigint unsigned  not null comment '总价',
-    count        int unsigned     not null comment '数量',
-    gmt_created  datetime         not null comment '创建时间',
-    gmt_modified datetime         not null comment '更新日期',
-    is_deleted   tinyint unsigned not null comment '逻辑删除',
-    is_enabled   tinyint unsigned not null comment '是否启用'
-) comment '订单表' charset = utf8;
+) comment '商品分类表' charset = utf8;
 
 
 
@@ -95,54 +78,21 @@ create table if not exists wb_role
     id           bigint unsigned  not null comment '表的 ID 主键'
         primary key,
     name         varchar(10)      not null comment '角色名称（英文）',
-    type         int unsigned     not null comment '角色类型',
+    type         int unsigned auto_increment comment '角色类型',
     description  varchar(20)      null comment '描述',
     gmt_created  datetime         not null comment '创建时间',
     gmt_modified datetime         not null comment '更新日期',
     is_deleted   tinyint unsigned not null comment '逻辑删除',
-    is_enabled   tinyint unsigned not null comment '是否启用'
+    is_enabled   tinyint unsigned not null comment '是否启用',
+    constraint wb_role_pk
+        unique (type),
+    constraint wb_role_pk_2
+        unique (name)
 ) comment '角色表' charset = utf8;
 
 
 
-drop table if exists wb_store;
-create table if not exists wb_store
-(
-    id           bigint unsigned  not null comment '表的 ID 主键'
-        primary key,
-    user_id      bigint unsigned  not null comment '所属用户',
-    name         varchar(40)      not null comment '店名',
-    description  varchar(100)     null comment '描述',
-    gmt_created  datetime         not null comment '创建时间',
-    gmt_modified datetime         not null comment '更新日期',
-    is_deleted   tinyint unsigned not null comment '逻辑删除',
-    is_enabled   tinyint unsigned not null comment '是否启用'
-) comment '商家表' charset = utf8;
-
-
-
-drop table if exists wb_inventory;
-create table if not exists wb_inventory
-(
-    id           bigint unsigned  not null comment '表的 ID 主键'
-        primary key,
-    store_id     bigint unsigned  not null comment '关联商店ID',
-    goods_id     bigint unsigned  not null comment '关联商品 ID',
-    price        bigint unsigned  not null comment '价格（冗余，加快访问）',
-    count        int unsigned     not null comment '库存数量',
-    gmt_created  datetime         not null comment '创建时间',
-    gmt_modified datetime         not null comment '更新日期',
-    is_deleted   tinyint unsigned not null comment '逻辑删除',
-    is_enabled   tinyint unsigned not null comment '是否启用',
-    constraint wb_inventory_wb_goods_id_fk
-        foreign key (goods_id) references wb_goods (id),
-    constraint wb_inventory_wb_store_id_fk
-        foreign key (store_id) references wb_store (id)
-) comment '库存表' charset = utf8;
-
-
-
-drop  table if exists wb_tag;
+drop table if exists wb_tag;
 create table if not exists wb_tag
 (
     id           bigint unsigned  not null comment '表的 ID 主键'
@@ -237,3 +187,63 @@ create table if not exists wb_cart
         foreign key (user_id) references wb_user (id)
 ) comment '购物车表' charset = utf8;
 
+
+
+drop table if exists wb_order;
+create table if not exists wb_order
+(
+    id           bigint unsigned  not null comment '表的 ID 主键'
+        primary key,
+    user_id      bigint unsigned  not null comment '关联用户 ID',
+    goods_id     bigint unsigned  not null comment '关联商品ID',
+    price        bigint unsigned  not null comment '单价',
+    total        bigint unsigned  not null comment '总价',
+    count        int unsigned     not null comment '数量',
+    gmt_created  datetime         not null comment '创建时间',
+    gmt_modified datetime         not null comment '更新日期',
+    is_deleted   tinyint unsigned not null comment '逻辑删除',
+    is_enabled   tinyint unsigned not null comment '是否启用',
+    constraint wb_order_wb_goods_id_fk
+        foreign key (goods_id) references wb_goods (id),
+    constraint wb_order_wb_user_id_fk
+        foreign key (user_id) references wb_user (id)
+) comment '订单表' charset = utf8;
+
+
+
+drop table if exists wb_store;
+create table if not exists wb_store
+(
+    id           bigint unsigned  not null comment '表的 ID 主键'
+        primary key,
+    user_id      bigint unsigned  not null comment '所属用户',
+    name         varchar(40)      not null comment '店名',
+    description  varchar(100)     null comment '描述',
+    gmt_created  datetime         not null comment '创建时间',
+    gmt_modified datetime         not null comment '更新日期',
+    is_deleted   tinyint unsigned not null comment '逻辑删除',
+    is_enabled   tinyint unsigned not null comment '是否启用',
+    constraint wb_store_wb_user_id_fk
+        foreign key (user_id) references wb_user (id)
+) comment '商家表' charset = utf8;
+
+
+
+drop table if exists wb_inventory;
+create table if not exists wb_inventory
+(
+    id           bigint unsigned  not null comment '表的 ID 主键'
+        primary key,
+    store_id     bigint unsigned  not null comment '关联商店ID',
+    goods_id     bigint unsigned  not null comment '关联商品 ID',
+    price        bigint unsigned  not null comment '价格（冗余，加快访问）',
+    count        int unsigned     not null comment '库存数量',
+    gmt_created  datetime         not null comment '创建时间',
+    gmt_modified datetime         not null comment '更新日期',
+    is_deleted   tinyint unsigned not null comment '逻辑删除',
+    is_enabled   tinyint unsigned not null comment '是否启用',
+    constraint wb_inventory_wb_goods_id_fk
+        foreign key (goods_id) references wb_goods (id),
+    constraint wb_inventory_wb_store_id_fk
+        foreign key (store_id) references wb_store (id)
+) comment '库存表' charset = utf8;
