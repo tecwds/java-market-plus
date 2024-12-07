@@ -1,8 +1,5 @@
 package top.wpaint.marketplus.entity;
 
-import com.mybatisflex.annotation.Column;
-import com.mybatisflex.annotation.Id;
-import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -24,49 +21,30 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(value = "wb_role")
-public class Role implements Serializable {
+@Table(value = "template")
+public class Template implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
     /**
-     * 表的 ID 主键
-     */
-    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
-    private BigInteger id;
-
-    /**
-     * 角色名称（英文）
-     */
-    private String name;
-
-    /**
-     * 角色类型
-     */
-    private Long type;
-
-    /**
-     * 描述
-     */
-    private String description;
-
-    /**
      * 创建时间
      */
-    @Column(onInsertValue = "now()")
     private LocalDateTime gmtCreated;
+
+    /**
+     * 表的 ID 主键
+     */
+    private BigInteger id;
 
     /**
      * 更新日期
      */
-    @Column(onInsertValue = "now()", onUpdateValue = "now()")
     private LocalDateTime gmtModified;
 
     /**
      * 逻辑删除
      */
-    @Column(onInsertValue = "0", isLogicDelete = true)
     private Integer isDeleted;
 
     /**

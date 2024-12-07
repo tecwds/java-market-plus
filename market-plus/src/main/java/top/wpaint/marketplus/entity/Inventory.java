@@ -24,8 +24,8 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(value = "wb_role")
-public class Role implements Serializable {
+@Table(value = "wb_inventory")
+public class Inventory implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -37,19 +37,24 @@ public class Role implements Serializable {
     private BigInteger id;
 
     /**
-     * 角色名称（英文）
+     * 关联商店ID
      */
-    private String name;
+    private BigInteger storeId;
 
     /**
-     * 角色类型
+     * 关联商品 ID
      */
-    private Long type;
+    private BigInteger goodsId;
 
     /**
-     * 描述
+     * 价格（冗余，加快访问）
      */
-    private String description;
+    private BigInteger price;
+
+    /**
+     * 库存数量
+     */
+    private Long count;
 
     /**
      * 创建时间

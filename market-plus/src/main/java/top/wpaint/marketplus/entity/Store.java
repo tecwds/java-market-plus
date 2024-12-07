@@ -18,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-06
+ * @since 2024-12-07
  */
 @Data
 @Builder
@@ -35,6 +35,21 @@ public class Store implements Serializable {
      */
     @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
+
+    /**
+     * 所属用户
+     */
+    private BigInteger userId;
+
+    /**
+     * 店名
+     */
+    private String name;
+
+    /**
+     * 描述
+     */
+    private String description;
 
     /**
      * 创建时间

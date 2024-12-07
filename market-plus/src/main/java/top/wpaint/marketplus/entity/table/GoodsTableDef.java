@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-12-07
  */
-public class OrderTableDef extends TableDef {
+public class GoodsTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class OrderTableDef extends TableDef {
     /**
      * 
      */
-    public static final OrderTableDef ORDER = new OrderTableDef();
+    public static final GoodsTableDef GOODS = new GoodsTableDef();
 
     /**
      * 表的 ID 主键
@@ -27,29 +27,19 @@ public class OrderTableDef extends TableDef {
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
-     * 数量
+     * 商品名称
      */
-    public final QueryColumn COUNT = new QueryColumn(this, "count");
+    public final QueryColumn NAME = new QueryColumn(this, "name");
 
     /**
-     * 单价
+     * 图片地址
+     */
+    public final QueryColumn IMAGE = new QueryColumn(this, "image");
+
+    /**
+     * 商品价格
      */
     public final QueryColumn PRICE = new QueryColumn(this, "price");
-
-    /**
-     * 总价
-     */
-    public final QueryColumn TOTAL = new QueryColumn(this, "total");
-
-    /**
-     * 关联用户 ID
-     */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
-
-    /**
-     * 关联商品ID
-     */
-    public final QueryColumn GOODS_ID = new QueryColumn(this, "goods_id");
 
     /**
      * 逻辑删除
@@ -67,6 +57,11 @@ public class OrderTableDef extends TableDef {
     public final QueryColumn GMT_CREATED = new QueryColumn(this, "gmt_created");
 
     /**
+     * 商品描述
+     */
+    public final QueryColumn DESCRIPTION = new QueryColumn(this, "description");
+
+    /**
      * 更新日期
      */
     public final QueryColumn GMT_MODIFIED = new QueryColumn(this, "gmt_modified");
@@ -79,19 +74,19 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, NAME, DESCRIPTION, PRICE, IMAGE, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
-    public OrderTableDef() {
-        super("", "wb_order");
+    public GoodsTableDef() {
+        super("", "wb_goods");
     }
 
-    private OrderTableDef(String schema, String name, String alisa) {
+    private GoodsTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public OrderTableDef as(String alias) {
+    public GoodsTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new OrderTableDef("", "wb_order", alias));
+        return getCache(key, k -> new GoodsTableDef("", "wb_goods", alias));
     }
 
 }

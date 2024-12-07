@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-12-07
  */
-public class UserTableDef extends TableDef {
+public class AddressTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class UserTableDef extends TableDef {
     /**
      * 
      */
-    public static final UserTableDef USER = new UserTableDef();
+    public static final AddressTableDef ADDRESS = new AddressTableDef();
 
     /**
      * 表的 ID 主键
@@ -27,39 +27,39 @@ public class UserTableDef extends TableDef {
     public final QueryColumn ID = new QueryColumn(this, "id");
 
     /**
+     * 市
+     */
+    public final QueryColumn CITY = new QueryColumn(this, "city");
+
+    /**
      * 邮箱
      */
     public final QueryColumn EMAIL = new QueryColumn(this, "email");
 
     /**
-     * 头像地址
+     * 电话
      */
-    public final QueryColumn AVATAR = new QueryColumn(this, "avatar");
+    public final QueryColumn PHONE = new QueryColumn(this, "phone");
 
     /**
-     * 性别
+     * 详细地址
      */
-    public final QueryColumn GENDER = new QueryColumn(this, "gender");
+    public final QueryColumn DETAIL = new QueryColumn(this, "detail");
 
     /**
-     * 昵称
+     * 关联用户 ID
      */
-    public final QueryColumn NICKNAME = new QueryColumn(this, "nickname");
+    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
 
     /**
-     * 密码
+     * 区
      */
-    public final QueryColumn PASSWORD = new QueryColumn(this, "password");
+    public final QueryColumn COUNTRY = new QueryColumn(this, "country");
 
     /**
-     * 角色名称
+     * 省
      */
-    public final QueryColumn ROLE_NAME = new QueryColumn(this, "role_name");
-
-    /**
-     * 用户名
-     */
-    public final QueryColumn USERNAME = new QueryColumn(this, "username");
+    public final QueryColumn PROVINCE = new QueryColumn(this, "province");
 
     /**
      * 逻辑删除
@@ -70,11 +70,6 @@ public class UserTableDef extends TableDef {
      * 是否启用
      */
     public final QueryColumn IS_ENABLED = new QueryColumn(this, "is_enabled");
-
-    /**
-     * 签名
-     */
-    public final QueryColumn SIGNATURE = new QueryColumn(this, "signature");
 
     /**
      * 创建时间
@@ -94,19 +89,19 @@ public class UserTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, EMAIL, PASSWORD, AVATAR, USERNAME, NICKNAME, SIGNATURE, GENDER, ROLE_NAME, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, EMAIL, PHONE, PROVINCE, CITY, COUNTRY, DETAIL, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
-    public UserTableDef() {
-        super("", "wb_user");
+    public AddressTableDef() {
+        super("", "wb_address");
     }
 
-    private UserTableDef(String schema, String name, String alisa) {
+    private AddressTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public UserTableDef as(String alias) {
+    public AddressTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new UserTableDef("", "wb_user", alias));
+        return getCache(key, k -> new AddressTableDef("", "wb_address", alias));
     }
 
 }

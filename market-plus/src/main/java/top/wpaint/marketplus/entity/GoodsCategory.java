@@ -24,8 +24,8 @@ import java.io.Serial;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(value = "wb_role")
-public class Role implements Serializable {
+@Table(value = "wb_goods_category")
+public class GoodsCategory implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -36,20 +36,9 @@ public class Role implements Serializable {
     @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
 
-    /**
-     * 角色名称（英文）
-     */
-    private String name;
+    private BigInteger goodsId;
 
-    /**
-     * 角色类型
-     */
-    private Long type;
-
-    /**
-     * 描述
-     */
-    private String description;
+    private BigInteger categoryId;
 
     /**
      * 创建时间

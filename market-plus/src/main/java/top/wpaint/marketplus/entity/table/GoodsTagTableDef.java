@@ -11,7 +11,7 @@ import java.io.Serial;
  * @author tecwds
  * @since 2024-12-07
  */
-public class OrderTableDef extends TableDef {
+public class GoodsTagTableDef extends TableDef {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -19,36 +19,17 @@ public class OrderTableDef extends TableDef {
     /**
      * 
      */
-    public static final OrderTableDef ORDER = new OrderTableDef();
+    public static final GoodsTagTableDef GOODS_TAG = new GoodsTagTableDef();
 
     /**
      * 表的 ID 主键
      */
     public final QueryColumn ID = new QueryColumn(this, "id");
 
-    /**
-     * 数量
-     */
-    public final QueryColumn COUNT = new QueryColumn(this, "count");
+    
+    public final QueryColumn TAG_ID = new QueryColumn(this, "tag_id");
 
-    /**
-     * 单价
-     */
-    public final QueryColumn PRICE = new QueryColumn(this, "price");
-
-    /**
-     * 总价
-     */
-    public final QueryColumn TOTAL = new QueryColumn(this, "total");
-
-    /**
-     * 关联用户 ID
-     */
-    public final QueryColumn USER_ID = new QueryColumn(this, "user_id");
-
-    /**
-     * 关联商品ID
-     */
+    
     public final QueryColumn GOODS_ID = new QueryColumn(this, "goods_id");
 
     /**
@@ -79,19 +60,19 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, GOODS_ID, TAG_ID, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
-    public OrderTableDef() {
-        super("", "wb_order");
+    public GoodsTagTableDef() {
+        super("", "wb_goods_tag");
     }
 
-    private OrderTableDef(String schema, String name, String alisa) {
+    private GoodsTagTableDef(String schema, String name, String alisa) {
         super(schema, name, alisa);
     }
 
-    public OrderTableDef as(String alias) {
+    public GoodsTagTableDef as(String alias) {
         String key = getNameWithSchema() + "." + alias;
-        return getCache(key, k -> new OrderTableDef("", "wb_order", alias));
+        return getCache(key, k -> new GoodsTagTableDef("", "wb_goods_tag", alias));
     }
 
 }
