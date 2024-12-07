@@ -25,6 +25,15 @@ public class UserInfoStorage {
         add("userId", value);
     }
 
+    public static String get(String key) {
+        log.info("获得 {} 信息", key);
+        return userInfo.get().get(key);
+    }
+
+    public static String getUserId() {
+        return get("userId");
+    }
+
     public static void remove(String key) {
         log.info("删除 ThreadLocal 信息 -- key： {}", key);
         userInfo.get().remove(key);
