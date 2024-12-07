@@ -11,4 +11,5 @@ import top.wpaint.marketplus.entity.Cart;
  */
 public interface CartService extends IService<Cart> {
 
+    void doAddGoodsToCart(String goodsId, Long count);
 }
