@@ -28,4 +28,7 @@ public class BaseController {
 
     @Resource
     protected CartService cartService;
+
+    @Resource
+    protected AddressService addressService;
 }
