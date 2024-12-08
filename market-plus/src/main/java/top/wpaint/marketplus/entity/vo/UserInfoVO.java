@@ -20,9 +20,9 @@ public class UserInfoVO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     /**
-     * 用户 ID
+     *  ID
      */
-    private BigInteger userId;
+    private BigInteger id;
 
     /**
      * 用户名（邮箱）
@@ -30,9 +30,14 @@ public class UserInfoVO implements Serializable {
     private String email;
 
     /**
-     * 用户昵称
+     * 用户名
      */
     private String username;
+
+    /**
+     * 用户昵称
+     */
+    private String nickname;
 
     /**
      * 头像

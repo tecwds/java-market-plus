@@ -1,6 +1,8 @@
 package top.wpaint.marketplus.entity;
 
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -16,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-05
+ * @since 2024-12-08
  */
 @Data
 @Builder
@@ -31,7 +33,38 @@ public class Order implements Serializable {
     /**
      * 表的 ID 主键
      */
+    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
+
+    /**
+     * 订单 ID
+     */
+    private BigInteger orderId;
+
+    /**
+     * 关联用户 ID
+     */
+    private BigInteger userId;
+
+    /**
+     * 关联商品ID
+     */
+    private BigInteger goodsId;
+
+    /**
+     * 单价
+     */
+    private BigInteger price;
+
+    /**
+     * 总价
+     */
+    private BigInteger total;
+
+    /**
+     * 数量
+     */
+    private Long count;
 
     /**
      * 创建时间

@@ -28,7 +28,7 @@ public class CodegenUtils {
         HikariDataSource dataSource = new HikariDataSource();
 
         dataSource.setJdbcUrl(
-                "jdbc:mysql://localhost:6666/market_plus_db?characterEncoding=utf-8");
+                "jdbc:mysql://124.221.233.70:6666/market_plus_db?characterEncoding=utf-8");
         dataSource.setUsername("root");
         dataSource.setPassword("MySQL123@tecwds");
 
@@ -67,16 +67,7 @@ public class CodegenUtils {
         globalConfig.setMapperOverwriteEnable(true);
         globalConfig.setMapperXmlOverwriteEnable(true);
 
-        ArrayList<String> tableNames = new ArrayList<>();
-        tableNames.add(TABLE_PREFIX + "address");
-        tableNames.add(TABLE_PREFIX + "cart");
-        tableNames.add(TABLE_PREFIX + "goods");
-        tableNames.add(TABLE_PREFIX + "inventory");
-        tableNames.add(TABLE_PREFIX + "order");
-        tableNames.add(TABLE_PREFIX + "role");
-        tableNames.add(TABLE_PREFIX + "store");
-        tableNames.add(TABLE_PREFIX + "tag");
-        tableNames.add(TABLE_PREFIX + "user");
+        ArrayList<String> tableNames = getTableNames();
 
         for (String table : tableNames) {
             globalConfig.setColumnConfig(table, ColumnConfig.builder().build().setColumnName("id")
@@ -98,5 +89,22 @@ public class CodegenUtils {
         globalConfig.setSince(LocalDateTimeUtil.format(LocalDateTime.now(), "yyyy-MM-dd"));
 
         return globalConfig;
+    }
+
+    private static ArrayList<String> getTableNames() {
+        ArrayList<String> tableNames = new ArrayList<>();
+        tableNames.add(TABLE_PREFIX + "address");
+        tableNames.add(TABLE_PREFIX + "cart");
+        tableNames.add(TABLE_PREFIX + "category");
+        tableNames.add(TABLE_PREFIX + "goods");
+        tableNames.add(TABLE_PREFIX + "goods_category");
+        tableNames.add(TABLE_PREFIX + "goods_tag");
+        tableNames.add(TABLE_PREFIX + "inventory");
+        tableNames.add(TABLE_PREFIX + "order");
+        tableNames.add(TABLE_PREFIX + "role");
+        tableNames.add(TABLE_PREFIX + "store");
+        tableNames.add(TABLE_PREFIX + "tag");
+        tableNames.add(TABLE_PREFIX + "user");
+        return tableNames;
     }
 }

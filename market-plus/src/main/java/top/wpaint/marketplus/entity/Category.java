@@ -1,6 +1,8 @@
 package top.wpaint.marketplus.entity;
 
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -16,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-05
+ * @since 2024-12-08
  */
 @Data
 @Builder
@@ -29,15 +31,10 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 表 ID,用于快速索引
+     * 表的 ID 主键
      */
-    @Id
+    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
-
-    /**
-     * 分类 ID
-     */
-    private BigInteger categoryId;
 
     /**
      * 分类名称
@@ -52,21 +49,24 @@ public class Category implements Serializable {
     /**
      * 创建时间
      */
+    @Column(onInsertValue = "now()")
     private LocalDateTime gmtCreated;
 
     /**
-     * 修改时间
+     * 更新日期
      */
+    @Column(onInsertValue = "now()", onUpdateValue = "now()")
     private LocalDateTime gmtModified;
 
     /**
-     * 是否删除（逻辑删除）
+     * 逻辑删除
      */
+    @Column(onInsertValue = "0", isLogicDelete = true)
     private Integer isDeleted;
 
     /**
-     * 是否启用（激活）
+     * 是否启用
      */
-    private Integer isEnable;
+    private Integer isEnabled;
 
 }

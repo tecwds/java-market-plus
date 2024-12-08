@@ -27,7 +27,6 @@ public class VerCodeUtil {
      * 发送邮件的方法
      *
      * @param to      接收者邮箱地址
-     * @param subject 邮件主题
      * @param text    邮件内容
      * @return 发送结果
      */

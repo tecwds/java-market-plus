@@ -26,11 +26,19 @@ public class Result<T> implements Serializable {
                 .build();
     }
 
+    public static Result<String> success() {
+        return success(null);
+    }
+
     public static <T> Result<T> error(int code, String message) {
         return Result.<T>builder()
                 .code(code)
                 .message(message)
                 .build();
+    }
+
+    public static Result<String> error(Status status) {
+        return error(status.getCode(), status.getMessage());
     }
 
     public static <T> Result<T> error(int code) {
@@ -39,9 +47,5 @@ public class Result<T> implements Serializable {
 
     public static <T> Result<T> error(String message) {
         return error(Status.ERROR.getCode(), message);
-    }
-
-    public static <T> Result<T> error() {
-        return error(Status.ERROR.getCode(), Status.ERROR.getMessage());
     }
 }

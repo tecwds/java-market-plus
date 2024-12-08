@@ -9,20 +9,38 @@ services:
       context: ..
       dockerfile: Dockerfile
     container_name: 'market-server'
+    command:
+      - -- debug=false
+      - -- spring.datasource.url=jdbc:mysql://market-mysql:3306/market_plus_db?characterEncoding=utf-8
+      - -- spring.datasource.username=root
+      - -- spring.datasource.password=MySQL123@tecwds
+      # 默认端口为 39150
+      - -- server.port=39150
     restart: unless-stopped
 #    volumes:
     environment:
       - TZ=Asia/Shanghai
     ports:
+      # 需要开放邮箱端口
+      - "25:25"
+      - "465:465"
       - '39150:39150'
     networks:
-      - market-net
+      market-net:
     logging:
       driver: 'json-file'
       options:
         max-size: '1G'
+    healthcheck:
+      test: "curl --fail --silent localhost:39150/api/healthy | grep UP || exit 1"
+#      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     depends_on:
-      - market-mysql
+      market-mysql:
+        condition: service_healthy
+
   market-mysql:
     image: 'mysql:5.7'
     container_name: 'market-mysql'
@@ -39,7 +57,7 @@ services:
       - MYSQL_ROOT_PASSWORD=MySQL123@tecwds
       - TZ=Asia/Shanghai
     networks:
-      - market-net
+      market-net:
     ports:
       - '6666:3306'
     tty: true
@@ -48,6 +66,12 @@ services:
       driver: 'json-file'
       options:
         max-size: '1G'
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
+      interval: 3s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
 
 networks:
   market-net:

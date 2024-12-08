@@ -1,33 +1,30 @@
 package top.wpaint.marketplus.service.support;
 
-import com.mybatisflex.core.query.QueryChain;
+import cn.dev33.satoken.stp.StpUtil;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import top.wpaint.marketplus.common.Status;
+import top.wpaint.marketplus.common.UserInfoStorage;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.User;
-import top.wpaint.marketplus.entity.table.UserTableDef;
 import top.wpaint.marketplus.mapper.UserMapper;
 
+@Slf4j
 @Component
 public class UserServiceSupport {
 
-    private final UserMapper userMapper;
+    @Resource
+    private UserMapper userMapper;
 
-    public UserServiceSupport(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
+    public User getUserFromStorage() throws AppException {
+        User u = userMapper.selectOneById(StpUtil.getExtra("userId").toString());
 
-    public User getUserById(String userId) throws AppException {
-        User user = QueryChain.of(userMapper)
-            .select(UserTableDef.USER.DEFAULT_COLUMNS)
-            .from(UserTableDef.USER)
-            .where(UserTableDef.USER.USER_ID.eq(userId))
-            .one();
-
-        if (null == user) {
-            throw new AppException(Status.USER_NOT_FOUND);
+        if (null == u) {
+            // 这里可能没有登陆，直接返回未登录
+            throw new AppException(Status.USER_NOT_LOGIN);
         }
-        return user;
-    }
 
+        return u;
+    }
 }

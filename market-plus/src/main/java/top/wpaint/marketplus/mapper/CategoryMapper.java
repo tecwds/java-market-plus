@@ -8,7 +8,7 @@ import top.wpaint.marketplus.entity.Category;
  *  映射层。
  *
  * @author tecwds
- * @since 2024-12-05
+ * @since 2024-12-08
  */
 @Mapper
 public interface CategoryMapper extends BaseMapper<Category> {

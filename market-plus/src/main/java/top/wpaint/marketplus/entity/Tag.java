@@ -1,6 +1,8 @@
 package top.wpaint.marketplus.entity;
 
 import com.mybatisflex.annotation.Column;
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -16,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-05
+ * @since 2024-12-08
  */
 @Data
 @Builder
@@ -31,6 +33,7 @@ public class Tag implements Serializable {
     /**
      * 表的 ID 主键
      */
+    @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
 
     /**
