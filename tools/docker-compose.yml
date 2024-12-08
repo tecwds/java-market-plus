@@ -14,10 +14,14 @@ services:
       - -- spring.datasource.url=jdbc:mysql://market-mysql:3306/market_plus_db?characterEncoding=utf-8
       - -- spring.datasource.username=root
       - -- spring.datasource.password=MySQL123@tecwds
+      - -- spring.mail.host=smtp.163.com
+      - -- spring.mail.username=${邮箱用户名}
+      - -- spring.mail.password=${邮箱授权码}
+      - -- sa-token.jwt-secret-key=${生成jwt的密钥}
+      - -- market.secret-key=${密码加密密钥}
       # 默认端口为 39150
       - -- server.port=39150
     restart: unless-stopped
-#    volumes:
     environment:
       - TZ=Asia/Shanghai
     ports:
@@ -33,7 +37,7 @@ services:
         max-size: '1G'
     healthcheck:
       test: "curl --fail --silent localhost:39150/api/healthy | grep UP || exit 1"
-#      interval: 15s
+      interval: 15s
       timeout: 5s
       retries: 5
       start_period: 10s
