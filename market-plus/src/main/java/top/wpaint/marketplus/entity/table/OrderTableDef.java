@@ -9,7 +9,7 @@ import java.io.Serial;
  *  表定义层。
  *
  * @author tecwds
- * @since 2024-12-07
+ * @since 2024-12-08
  */
 public class OrderTableDef extends TableDef {
 
@@ -52,6 +52,11 @@ public class OrderTableDef extends TableDef {
     public final QueryColumn GOODS_ID = new QueryColumn(this, "goods_id");
 
     /**
+     * 订单 ID
+     */
+    public final QueryColumn ORDER_ID = new QueryColumn(this, "order_id");
+
+    /**
      * 逻辑删除
      */
     public final QueryColumn IS_DELETED = new QueryColumn(this, "is_deleted");
@@ -79,7 +84,7 @@ public class OrderTableDef extends TableDef {
     /**
      * 默认字段，不包含逻辑删除或者 large 等字段。
      */
-    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
+    public final QueryColumn[] DEFAULT_COLUMNS = new QueryColumn[]{ID, ORDER_ID, USER_ID, GOODS_ID, PRICE, TOTAL, COUNT, GMT_CREATED, GMT_MODIFIED, IS_ENABLED};
 
     public OrderTableDef() {
         super("", "wb_order");

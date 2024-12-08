@@ -22,6 +22,14 @@ public enum Status {
     USER_NOT_FOUND(400, "用户不存在"),
     USERNAME_OR_PASSWD_ERR(400, "用户名或者密码错误"),
 
+    // 订单
+    ORDER_NOT_FOUND(400, "订单未找到"),
+
+    // 地址
+    ADDRESS_NOT_FOUND(400, "地址为找到"),
+
+    // 商品
+    GOODS_NOT_FOUND(400, "商品不存在"),
 
     SEND_MAIL_OK(200, "发送成功，请验收"),
     REGISTER_OK(200, "注册成功"),
@@ -29,7 +37,10 @@ public enum Status {
 
 
     USER_AUTH_TYPE_NOT_SUPPORT(400, "不支持的登陆形式"),
-    OLD_PASSWORD_NOT_EQ(400, "旧密码不正确");
+    OLD_PASSWORD_NOT_EQ(400, "旧密码不正确"),
+    ;
+
+
 
 
 
