@@ -5,7 +5,9 @@ import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.constant.LogicConst;
+import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.entity.Goods;
 import top.wpaint.marketplus.entity.Order;
 import top.wpaint.marketplus.entity.dto.OrderDTO;
@@ -76,11 +78,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public List<OrderVO> doGetOrderList() {
+    public List<OrderVO> doGetOrderList() throws AppException {
         // TODO 需要优化
         // 个人所有订单
         List<Order> orders = list(QueryWrapper.create()
-                .where(OrderTableDef.ORDER.USER_ID.eq(StpUtil.getExtra("useId").toString())));
+                .where(OrderTableDef.ORDER.USER_ID.eq(StpUtil.getExtra("userId").toString())));
+
+        if (null == orders || orders.isEmpty()) {
+            log.warn("用户 {} 没有订单", StpUtil.getLoginIdAsString());
+            throw new AppException(Status.ORDER_EMPTY);
+        }
 
         // 订单 + 商品信息
         List<OrderVO> voList = new ArrayList<>();

@@ -19,5 +19,5 @@ public interface OrderService extends IService<Order> {
 
     void doAddOrder(OrderDTO order) throws AppException;
 
-    List<OrderVO> doGetOrderList();
+    List<OrderVO> doGetOrderList() throws AppException;
 }

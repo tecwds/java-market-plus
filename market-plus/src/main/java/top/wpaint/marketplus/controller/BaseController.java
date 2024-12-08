@@ -34,4 +34,13 @@ public class BaseController {
 
     @Resource
     protected OrderService orderService;
+
+    @Resource
+    protected GoodsTagService goodsTagService;
+
+    @Resource
+    protected GoodsCategoryService goodsCategoryService;
+
+    @Resource
+    protected InventoryService inventoryService;
 }

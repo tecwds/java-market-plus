@@ -9,7 +9,7 @@ public enum Status {
     ERROR(400, "未知错误"),
 
     // 401
-    USER_NOT_LOGIN(400, "你就没登陆"),
+    USER_NOT_LOGIN(401, "你就没登陆"),
 
     // 注册
     VERIFY_CODE_NOT_EQ(400, "验证码不正确"),
@@ -24,6 +24,7 @@ public enum Status {
 
     // 订单
     ORDER_NOT_FOUND(400, "订单未找到"),
+    ORDER_EMPTY(400, "不存在订单"),
 
     // 地址
     ADDRESS_NOT_FOUND(400, "地址为找到"),
@@ -31,9 +32,15 @@ public enum Status {
     // 商品
     GOODS_NOT_FOUND(400, "商品不存在"),
 
+    // 库存
+    INVENTORY_NOT_FOUND(400, "库存信息不存在"),
+
+    // 注册
     SEND_MAIL_OK(200, "发送成功，请验收"),
     REGISTER_OK(200, "注册成功"),
 
+    // 商店
+    USER_NOT_SELLER(400, "不是店主，不能添加商品"),
 
 
     USER_AUTH_TYPE_NOT_SUPPORT(400, "不支持的登陆形式"),
