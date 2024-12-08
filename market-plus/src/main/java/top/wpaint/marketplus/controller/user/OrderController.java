@@ -41,7 +41,7 @@ public class OrderController extends BaseController {
     @DeleteMapping
     public Result<String> deleteOrder(String orderId) {
         log.info("用户 {} 删除订单： {}", StpUtil.getLoginIdAsString(), orderId);
-        orderService.removeById(orderId);
+        orderService.remove(QueryWrapper.create().where(OrderTableDef.ORDER.ORDER_ID.eq(orderId)));
         return Result.success();
     }
 }
