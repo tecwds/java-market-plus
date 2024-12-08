@@ -16,14 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderVO implements Serializable {
     private BigInteger id;
-
-    /**
-     * 总价
-     */
-    private BigInteger total;
-
     /**
      * 关联商品
      */
-    private List<OrderGoods> goods;
+    private List<GoodsVO> goods;
 }

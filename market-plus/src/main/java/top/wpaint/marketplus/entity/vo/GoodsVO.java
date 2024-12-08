@@ -18,5 +18,6 @@ public class GoodsVO implements Serializable {
     private String description;
     private String image;
     private BigInteger price;
+    private BigInteger total;
     private Long count;
 }
