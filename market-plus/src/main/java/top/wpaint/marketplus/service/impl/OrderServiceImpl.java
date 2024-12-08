@@ -1,6 +1,7 @@
 package top.wpaint.marketplus.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,7 @@ import top.wpaint.marketplus.entity.Goods;
 import top.wpaint.marketplus.entity.Order;
 import top.wpaint.marketplus.entity.dto.OrderDTO;
 import top.wpaint.marketplus.entity.support.OrderGoods;
+import top.wpaint.marketplus.entity.table.OrderTableDef;
 import top.wpaint.marketplus.entity.vo.GoodsVO;
 import top.wpaint.marketplus.entity.vo.OrderVO;
 import top.wpaint.marketplus.mapper.GoodsMapper;
@@ -70,7 +72,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public List<OrderVO> doGetOrderList() {
         // TODO 需要优化
         // 个人所有订单
-        List<Order> orders = list();
+        List<Order> orders = list(QueryWrapper.create().where(OrderTableDef.ORDER.USER_ID.eq(StpUtil.getExtra("useId").toString())));
 
         // 订单 + 商品信息
         List<OrderVO> voList = new ArrayList<>();
