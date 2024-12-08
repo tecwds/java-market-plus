@@ -18,7 +18,7 @@ import java.io.Serial;
  *  实体类。
  *
  * @author tecwds
- * @since 2024-12-07
+ * @since 2024-12-08
  */
 @Data
 @Builder
@@ -35,6 +35,11 @@ public class Order implements Serializable {
      */
     @Id(keyType = KeyType.Generator, value = "snowFlakeId")
     private BigInteger id;
+
+    /**
+     * 订单 ID
+     */
+    private BigInteger orderId;
 
     /**
      * 关联用户 ID

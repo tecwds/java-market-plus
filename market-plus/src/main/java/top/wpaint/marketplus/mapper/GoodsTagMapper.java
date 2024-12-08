@@ -8,7 +8,7 @@ import top.wpaint.marketplus.entity.GoodsTag;
  *  映射层。
  *
  * @author tecwds
- * @since 2024-12-07
+ * @since 2024-12-08
  */
 @Mapper
 public interface GoodsTagMapper extends BaseMapper<GoodsTag> {

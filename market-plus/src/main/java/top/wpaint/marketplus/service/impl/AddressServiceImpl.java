@@ -33,7 +33,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
 
     @Override
     public Address doUpdateAddress(AddressDTO address) {
-        Address addr = getById(address.getId());
+        Address addr = getById(address.getId().toString());
         BeanUtils.copyProperties(address, addr);
         updateById(addr);
         return addr;

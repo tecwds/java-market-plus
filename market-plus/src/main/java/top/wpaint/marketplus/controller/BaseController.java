@@ -31,4 +31,7 @@ public class BaseController {
 
     @Resource
     protected AddressService addressService;
+
+    @Resource
+    protected OrderService orderService;
 }
