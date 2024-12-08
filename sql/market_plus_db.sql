@@ -194,6 +194,7 @@ create table if not exists wb_order
 (
     id           bigint unsigned  not null comment '表的 ID 主键'
         primary key,
+    order_id     bigint unsigned  not null comment '订单 ID',
     user_id      bigint unsigned  not null comment '关联用户 ID',
     goods_id     bigint unsigned  not null comment '关联商品ID',
     price        bigint unsigned  not null comment '单价',
@@ -208,6 +209,7 @@ create table if not exists wb_order
     constraint wb_order_wb_user_id_fk
         foreign key (user_id) references wb_user (id)
 ) comment '订单表' charset = utf8;
+
 
 
 
