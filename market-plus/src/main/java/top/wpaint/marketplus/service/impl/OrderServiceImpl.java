@@ -17,6 +17,7 @@ import top.wpaint.marketplus.mapper.GoodsMapper;
 import top.wpaint.marketplus.mapper.OrderMapper;
 import top.wpaint.marketplus.service.OrderService;
 import org.springframework.stereotype.Service;
+import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
 
 import java.math.BigInteger;
 import java.util.*;
@@ -36,8 +37,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Resource
     private GoodsMapper goodsMapper;
 
+    @Resource
+    private SnowflakeDistributeIdUtil snowUtil;
+
     @Override
     public void doAddOrder(OrderDTO order) {
+        BigInteger orderId = BigInteger.valueOf(snowUtil.nextId());
+
         // TODO 需要优化
         List<String> goodsIds = new ArrayList<>(order.getGoods().size());
 
@@ -57,6 +63,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         for (Goods goods : goodsList) {
             Order o = new Order();
             o.setUserId(userId);
+            o.setOrderId(orderId);
             o.setGoodsId(goods.getId());
             o.setPrice(goods.getPrice());
             o.setCount(goodsAndTotal.get(goods.getId()));
