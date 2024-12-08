@@ -26,7 +26,7 @@ import java.util.List;
 public class OrderController extends BaseController {
 
     @GetMapping("list")
-    public Result<List<OrderVO>> getOrderList() {
+    public Result<List<OrderVO>> getOrderList() throws AppException {
         log.info("用户 {} 获得所有订单", StpUtil.getLoginIdAsString());
         return Result.success(orderService.doGetOrderList());
     }
