@@ -72,7 +72,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     public List<OrderVO> doGetOrderList() {
         // TODO 需要优化
         // 个人所有订单
-        List<Order> orders = list(QueryWrapper.create().where(OrderTableDef.ORDER.USER_ID.eq(StpUtil.getExtra("useId").toString())));
+        List<Order> orders = list(QueryWrapper.create()
+                .where(OrderTableDef.ORDER.USER_ID.eq(StpUtil.getExtra("useId").toString())));
 
         // 订单 + 商品信息
         List<OrderVO> voList = new ArrayList<>();
