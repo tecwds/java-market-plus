@@ -5,6 +5,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import top.wpaint.marketplus.common.Result;
+import top.wpaint.marketplus.common.Status;
 import top.wpaint.marketplus.common.exception.AppException;
 import top.wpaint.marketplus.controller.BaseController;
 import top.wpaint.marketplus.entity.dto.LoginDTO;
@@ -21,6 +22,12 @@ public class LoginController extends BaseController {
 
         // 已经登陆快速返回 Token
         if (StpUtil.isLogin(login.getEmail())) {
+
+            if (null == StpUtil.getTokenValue()) {
+                log.info("这个用户异地登陆 -- {}", login.getEmail());
+                throw new AppException(Status.USER_LOGIN_TWICE);
+            }
+
             log.info("这个用户已经登陆了 -- {}", login.getEmail());
             return Result.success(new LoginVO(StpUtil.getTokenValue()));
         }

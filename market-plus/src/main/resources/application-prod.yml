@@ -6,7 +6,6 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
   mail:
-    port: 465
     properties:
       mail:
         smtp:

@@ -11,11 +11,13 @@ import top.wpaint.marketplus.entity.*;
 import top.wpaint.marketplus.entity.dto.GoodsDTO;
 import top.wpaint.marketplus.entity.table.GoodsCategoryTableDef;
 import top.wpaint.marketplus.entity.table.GoodsTagTableDef;
+import top.wpaint.marketplus.entity.table.StoreTableDef;
 import top.wpaint.marketplus.entity.table.TagTableDef;
 import top.wpaint.marketplus.entity.vo.GoodsTagCategoryVO;
 import top.wpaint.marketplus.mapper.*;
 import top.wpaint.marketplus.service.GoodsService;
 import org.springframework.stereotype.Service;
+import top.wpaint.marketplus.util.SnowflakeDistributeIdUtil;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -48,10 +50,14 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     @Resource
     private InventoryMapper inventoryMapper;
 
+    @Resource
+    private SnowflakeDistributeIdUtil snowUtil;
+
     @Override
     public Integer doAddGoodsBatch(List<GoodsDTO> goodsList) throws AppException {
         List<Goods> goods = new ArrayList<>(goodsList.size());
         goodsList.forEach(it -> goods.add(Goods.builder()
+                .id(BigInteger.valueOf(snowUtil.nextId()))
                 .name(it.getName())
                 .description(it.getDescription())
                 .image(it.getImage())
@@ -59,9 +65,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
                 .isEnabled(LogicConst.ENABLE)
                 .build()));
 
-
         // 商店信息
-        Store store = storeMapper.selectOneById(StpUtil.getExtra("userId").toString());
+        Store store = storeMapper.selectOneByQuery(QueryWrapper.create()
+                .where(StoreTableDef.STORE.USER_ID.eq(StpUtil.getExtra("userId").toString())));
 
         if (null == store) {
             throw new AppException(Status.USER_NOT_SELLER);
@@ -77,11 +83,13 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
                 .build()
         ).toList();
 
+        int row = getMapper().insertBatch(goods);
+
         // 库存
         inventoryMapper.insertBatch(invList);
 
         // 商品
-        return getMapper().insertBatch(goods);
+        return row;
     }
 
     @Override

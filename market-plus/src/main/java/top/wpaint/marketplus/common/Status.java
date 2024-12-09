@@ -10,6 +10,7 @@ public enum Status {
 
     // 401
     USER_NOT_LOGIN(401, "你就没登陆"),
+    USER_LOGIN_TWICE(401, "异地登陆！"),
 
     // 注册
     VERIFY_CODE_NOT_EQ(400, "验证码不正确"),
