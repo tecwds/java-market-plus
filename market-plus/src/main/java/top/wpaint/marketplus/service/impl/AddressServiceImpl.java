@@ -25,6 +25,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
     public void doAddAddress(AddressDTO address) {
         Address addr = new Address();
         BeanUtils.copyProperties(address, addr);
+        addr.setId(null);
         addr.setUserId(new BigInteger(StpUtil.getExtra("userId").toString()));
         addr.setEmail(StpUtil.getLoginIdAsString());
         addr.setIsEnabled(LogicConst.ENABLE);

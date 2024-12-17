@@ -1,5 +1,7 @@
 package top.wpaint.marketplus.entity.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.mybatisflex.annotation.RelationOneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +20,7 @@ public class CartInfoVO implements Serializable {
     /**
      * 商品 ID
      */
+    @JsonSerialize(using= ToStringSerializer.class)
     private BigInteger goodsId;
 
     /**
@@ -38,10 +41,12 @@ public class CartInfoVO implements Serializable {
     /**
      * 价格
      */
+    @JsonSerialize(using= ToStringSerializer.class)
     private BigInteger price;
 
     /**
      * 数量（来自 Cart 购物车）
      */
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long count;
 }

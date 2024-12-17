@@ -47,6 +47,22 @@ public class GoodsController extends BaseController {
     }
 
     @SaIgnore
+    @GetMapping("compare")
+    public Result<List<GoodsVO>> compareGoods(String goodsId, String compareGoodsID) {
+        log.info("比较商品信息");
+        List<Goods> goods = goodsService.listByIds(List.of(goodsId, compareGoodsID));
+        List<GoodsVO> voList = new ArrayList<>();
+        goods.forEach(it -> voList.add(GoodsVO.builder()
+                .id(it.getId())
+                .image(it.getImage())
+                .description(it.getDescription())
+                .name(it.getName())
+                .price(it.getPrice())
+                .build()));
+        return Result.success(voList);
+    }
+
+    @SaIgnore
     @GetMapping("info")
     public Result<GoodsVO> getGoodsInfo(String goodsId) {
         log.info("获得 {} 商品信息", goodsId);

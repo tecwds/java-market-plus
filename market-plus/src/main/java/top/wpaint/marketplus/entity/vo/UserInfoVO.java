@@ -1,5 +1,7 @@
 package top.wpaint.marketplus.entity.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +24,7 @@ public class UserInfoVO implements Serializable {
     /**
      *  ID
      */
+    @JsonSerialize(using= ToStringSerializer.class)
     private BigInteger id;
 
     /**

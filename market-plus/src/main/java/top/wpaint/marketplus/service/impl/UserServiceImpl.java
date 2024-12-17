@@ -30,6 +30,7 @@ import top.wpaint.marketplus.service.UserService;
 import org.springframework.stereotype.Service;
 import top.wpaint.marketplus.util.VerCodeUtil;
 
+import java.math.BigInteger;
 import java.util.Optional;
 
 /**
@@ -161,6 +162,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         BeanUtils.copyProperties(userInfo, u);
+        u.setId(new BigInteger(userInfo.getId()));
         userMapper.update(u);
 
         UserInfoVO vo = new UserInfoVO();

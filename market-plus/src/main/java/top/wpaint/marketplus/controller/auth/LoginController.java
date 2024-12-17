@@ -12,6 +12,7 @@ import top.wpaint.marketplus.entity.dto.LoginDTO;
 import top.wpaint.marketplus.entity.vo.LoginVO;
 
 @Slf4j
+@CrossOrigin(origins = "**")
 @RestController
 @RequestMapping("/api/auth")
 public class LoginController extends BaseController {
@@ -22,23 +23,18 @@ public class LoginController extends BaseController {
 
         // 已经登陆快速返回 Token
         if (StpUtil.isLogin(login.getEmail())) {
-
-            if (null == StpUtil.getTokenValue()) {
-                log.info("这个用户异地登陆 -- {}", login.getEmail());
-                throw new AppException(Status.USER_LOGIN_TWICE);
-            }
-
             log.info("这个用户已经登陆了 -- {}", login.getEmail());
-            return Result.success(new LoginVO(StpUtil.getTokenValue()));
+            StpUtil.logout(login.getEmail());
         }
 
         return Result.success(userService.doLogin(login));
     }
 
-    @SaCheckLogin
     @GetMapping("logout")
     public Result<String> logout() {
-        StpUtil.logout();
+        if (StpUtil.isLogin()) {
+            StpUtil.logout();
+        }
         return Result.success();
     }
 
